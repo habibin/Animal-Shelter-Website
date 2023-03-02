@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="style.css" media="screen">
+<title>Pets</title>
+
+<body>
+    <h1>Pets</h1>
+        [ <a href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
+        href="employees">Employees</a> | <a href="adoptions">Adoptions</a> | <a
+        href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
+    <p><strong>View Pets</strong></p>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>pet_id</th>
+            <th>pet_name</th>
+            <th>species</th>
+            <th>age</th>
+            <th>gender</th>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">1</td>
+            <td align="middle">Zaiba</td>
+            <td align="middle">Cat</td>
+            <td align="middle">5</td>
+            <td align="middle">Female</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">2</td>
+            <td align="middle">Hunter</td>
+            <td align="middle">Dog</td>
+            <td align="middle">7</td>
+            <td align="middle">Male</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">3</td>
+            <td align="middle">Mimi</td>
+            <td align="middle">Cat</td>
+            <td align="middle">2</td>
+            <td align="middle">Female</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">4</td>
+            <td align="middle">Fluffy</td>
+            <td align="middle">Dog</td>
+            <td align="middle">1</td>
+            <td align="middle">Male</td>
+        </tr>
+    </table>
+
+    <br>
+    <div>
+        <form action="">
+            <fieldset>
+                <legend><strong>Add Pet</strong></legend>
+                <label>Pet name: </label><input type="text" name="pet_name"><br>
+                <label>Species: </label><input type="text" name="species"><br>
+                <label>Age: </label><input type="text" name="age"><br>
+                <label>Gender: </label><input type="text" name="gender"><br>
+            </fieldset><br>
+            <input class="btn" type="submit" value="Add Pet">
+            <input class="btn" type="button" value="Cancel"><br><br><br>
+            <fieldset>
+                <legend><strong>Update Pet</strong></legend>
+                <label>Pet name: </label><input type="text" name="pet_name"><br>
+                <label>Species: </label><input type="text" name="species"><br>
+                <label>Age: </label><input type="text" name="age"><br>
+                <label>Gender: </label><input type="text" name="gender"><br>
+            </fieldset><br>
+            <input class="btn" type="submit" value="Update Pet">
+            <input class="btn" type="button" value="Cancel"><br><br><br>
+            <fieldset>
+                <legend><strong>Delete Pet</strong></legend>
+                <label>pet_id: </label><input type="text" name="first_name">
+            </fieldset><br>
+            <input class="btn" type="submit" value="Delete Pet">
+            <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+
+</body>

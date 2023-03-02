@@ -24,8 +24,74 @@ var db = require('./database/db-connector')
 */
 app.get('/', function(req, res)
     {
-        res.render('index');                    // Note the call to render() and not send(). Using render() ensures the templating engine
-    });                                         // will process this file, before sending the finished HTML to the client.
+        res.render('homepage');                    // Note the call to render() and not send(). Using render() ensures the templating engine
+    });     
+                                        // will process this file, before sending the finished HTML to the client.
+
+app.get('/customers', function(req, res)
+{  
+    let query1 = "SELECT * FROM Customers;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('customers', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+app.get('/pets', function(req, res)
+{  
+    let query1 = "SELECT * FROM Pets;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('pets', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+
+app.get('/employees', function(req, res)
+{  
+    let query1 = "SELECT * FROM Employees;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('employees', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+
+app.get('/adoptions', function(req, res)
+{  
+    let query1 = "SELECT * FROM Adoptions;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('adoptions', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+
+app.get('/vaccinations', function(req, res)
+{  
+    let query1 = "SELECT * FROM Vaccinations;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('vaccinations', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});    
+
+// received back from the query
+app.get('/petvaccinations', function(req, res)
+{  
+    let query1 = "SELECT * FROM PetVaccinations;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('petvaccinations', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
 
 /*
     LISTENER

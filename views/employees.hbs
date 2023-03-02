@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="style.css" media="screen">
+<title>Employees</title>
+
+<body>
+    <h1>Employees</h1>
+        [ <a href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
+        href="employees">Employees</a> | <a href="adoptions">Adoptions</a> | <a
+        href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
+    <p><strong>View Employees</strong></p>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>employee_id</th>
+            <th>first_name</th>
+            <th>last_name</th>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">1</td>
+            <td align="middle">Coral</td>
+            <td align="middle">Aquirere</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">2</td>
+            <td align="middle">Ismail</td>
+            <td align="middle">England</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">3</td>
+            <td align="middle">Lily</td>
+            <td align="middle">Peck</td>
+    </table>
+
+    <br>
+    <div>
+        <form action="">
+            <fieldset>
+                <legend><strong>Add Employee</strong></legend>
+                <label>first name: </label><input type="text" name="first_name"><br>
+                <label>last name: </label><input type="text" name="last_name"><br>
+            </fieldset><br>
+            <input class="btn" type="submit" value="Add Employee">
+            <input class="btn" type="button" value="Cancel"><br><br><br>
+            <fieldset>
+                <legend><strong>Update Employee</strong></legend>
+                <label>first name: </label><input type="text" name="first_name"><br>
+                <label>last name: </label><input type="text" name="last_name"><br>
+            </fieldset><br>
+            <input class="btn" type="submit" value="Update Employee">
+            <input class="btn" type="button" value="Cancel"><br><br><br>
+            <fieldset>
+                <legend><strong>Delete Employee</strong></legend>
+                <label>employee_id: </label><input type="text" name="first_name">
+            </fieldset><br>
+            <input class="btn" type="submit" value="Delete Employee">
+            <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+
+</body>

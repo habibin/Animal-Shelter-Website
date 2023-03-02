@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="style.css" media="screen">
+<title>Customers</title>
+
+<body>
+    <h1>Customers</h1>
+        [ <a href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
+        href="employees">Employees</a> | <a href="adoptions">Adoptions</a> | <a
+        href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
+    <p><strong>View Customers</strong></p>
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>customer_id</th>
+            <th>first_name</th>
+            <th>last_name</th>
+            <th>street</th>
+            <th>city</th>
+            <th>state</th>
+            <th>zip_code</th>
+            <th>phone_number</th>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">1</td>
+            <td align="middle">Cordelia</td>
+            <td align="middle">Carney</td>
+            <td align="middle">7728 Fifth street</td>
+            <td align="middle">Northville</td>
+            <td align="middle">MI</td>
+            <td align="middle">48167</td>
+            <td align="middle">(397)-833-1499</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">2</td>
+            <td align="middle">Mackenzie</td>
+            <td align="middle">Hendricks</td>
+            <td align="middle">15 Pendergast Ave</td>
+            <td align="middle">Beckley</td>
+            <td align="middle">WV</td>
+            <td align="middle">25801</td>
+            <td align="middle">(294)-667-7243</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showform('update')">Edit</a></td>
+            <td><a href="#" onclick="showform('update')">Delete</a></td>
+            <td align="middle">3</td>
+            <td align="middle">Will</td>
+            <td align="middle">Solis</td>
+            <td align="middle">233 Longfellow Street</td>
+            <td align="middle">Oshkosh</td>
+            <td align="middle">WA</td>
+            <td align="middle">54901</td>
+            <td align="middle">(849)-833-9788</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <div>
+        <form action="">
+            <fieldset>
+                <legend><strong>Add Customer</strong></legend>
+                <label>first name: </label><input type="text" name="first_name"><br>
+                <label>last name: </label><input type="text" name="last_name"><br>
+                <label>street: </label><input type="text" name="street"><br>
+                <label>city: </label><input type="text" name="city"><br>
+                <label>state: </label><input type="text" name="state"><br>
+                <label>zip code: </label><input type="text" name="zip_code"><br>
+                <label>phone number: </label><input type="text" name="phone_number"><br>
+            </fieldset><br>
+            <input class="btn" type="submit" value="Add Customer">
+            <input class="btn" type="button" value="Cancel"><br><br><br>
+            <fieldset>
+                <legend><strong>Update Customer</strong></legend>
+                <label>first name: </label><input type="text" name="first_name"><br>
+                <label>last name: </label><input type="text" name="last_name"><br>
+                <label>street: </label><input type="text" name="street"><br>
+                <label>city: </label><input type="text" name="city"><br>
+                <label>state: </label><input type="text" name="state"><br>
+                <label>zip code: </label><input type="text" name="zip_code"><br>
+                <label>phone number: </label><input type="text" name="phone_number"><br>
+            </fieldset><br>
+            <input class="btn" type="submit" value="Update Customer">
+            <input class="btn" type="button" value="Cancel"><br><br><br>
+            <fieldset>
+                <legend><strong>Delete Customer</strong></legend>
+                <label>customer_id: </label><input type="text" name="first_name">
+            </fieldset><br>
+            <input class="btn" type="submit" value="Delete Customer">
+            <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+</body>
