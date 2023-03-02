@@ -8,7 +8,7 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View Adoptions</strong></p>
 
-    <table border="1" cellpadding="5">
+    <table border="1" cellpadding="5" id="adoptions-table">
         <tr>
             <th></th>
             <th></th>
@@ -48,26 +48,31 @@
 
     <br>
     <div>
-        <form action="">
+        <form id="add-adoption-form-ajax">
             <fieldset>
                 <legend><strong>Add Adoption</strong></legend>
-                <label>customer_id: </label>
-                <select name="customer_id">
+
+                <label for="input-customer_id">customer_id: </label>
+                <select type="number" name="input-customer_id" id="input-customer_id">
                     <option value="0">&nbsp;</option>
                     <option value="1" selected="">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     </select><br>
-                <label>date: </label><input type="date" name="date"><br>
-                <label>pet_id: </label>
-                <select name="pet_id">
+
+                <label for="input-date">date: </label>
+                <input type="date" name="input-date" id="input-date"></input><br>
+
+                <label for="input-pet_id">pet_id: </label>
+                <select type="number" name="input-pet_id" id="input-pet_id">
                     <option value="0">&nbsp;</option>
                     <option value="1" selected="">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     </select><br>
-                <label>employee_id: </label>
-                <select name="employee_id">
+                    
+                <label for="input-employee_id">employee_id: </label>
+                <select type="number" name="input-employee_id" id="input-employee_id">
                     <option value="0">&nbsp;</option>
                     <option value="NULL" selected="">NULL</option>
                     <option value="1">1</option>
@@ -78,5 +83,8 @@
             <input class="btn" type="submit" value="Add Adoption">
             <input class="btn" type="button" value="Cancel"><br><br><br>
         </form>
+
+        {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+        <script src="./js/add_adoptions.js"></script>
     </div>
 </body>

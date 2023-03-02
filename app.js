@@ -6,6 +6,9 @@
 
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'))
 PORT        = 9125;                 // Set a port number at the top so it's easy to change in the future
 
 
@@ -70,6 +73,51 @@ app.get('/adoptions', function(req, res)
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
+app.post('/add-adoption-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    let employee_id = parseInt(data.employee_id);
+    if (isNaN(employee_id))
+    {
+        employee_id = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Adoptions (customer_id, date, pet_id, employee_id) VALUES (${adoption_id}, ${customer_id}, ${date}, ${pet_id}, ${employee_id})`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Adoptions
+            query2 = `SELECT * FROM Adoptions;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 
 app.get('/vaccinations', function(req, res)
 {  
