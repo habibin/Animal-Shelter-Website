@@ -12,7 +12,7 @@ CREATE OR REPLACE TABLE Customers (
     street varchar(50) NOT NULL,
     city varchar(50) NOT NULL,
     state varchar(50) NOT NULL,
-    zip_code int NOT NULL,
+    zip_code varchar(50) NOT NULL,
     phone_number varchar(50) NOT NULL,
     PRIMARY KEY(customer_id)
 );

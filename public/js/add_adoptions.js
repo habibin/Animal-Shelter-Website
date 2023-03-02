@@ -73,18 +73,21 @@ addRowToTable = (data) => {
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
+    let adoption_idCell = document.createElement("TD");
     let customer_idCell = document.createElement("TD");
     let dateCell = document.createElement("TD");
     let pet_idCell = document.createElement("TD");
     let employee_idCell = document.createElement("TD");
 
     // Fill the cells with correct data
+    adoption_idCell.innerText = newRow.id;
     customer_idCell.innerText = newRow.customer_id;
     dateCell.innerText = newRow.date;
     pet_idCell.innerText = newRow.pet_id;
     employee_idCell.innerText = newRow.employee_id;
 
     // Add the cells to the row 
+    row.appendChild(adoption_idCell);
     row.appendChild(customer_idCell);
     row.appendChild(dateCell);
     row.appendChild(pet_idCell);

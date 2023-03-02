@@ -8,8 +8,7 @@ var express = require('express');   // We are using the express library for the 
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'))
-PORT        = 9125;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 9130;                 // Set a port number at the top so it's easy to change in the future
 
 
 const { engine } = require('express-handlebars');
@@ -20,6 +19,9 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 
 // Database
 var db = require('./database/db-connector')
+
+//static files
+app.use(express.static('public'));
 
 
 /*
@@ -41,11 +43,12 @@ app.get('/customers', function(req, res)
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
+
 app.get('/pets', function(req, res)
 {  
-    let query1 = "SELECT * FROM Pets;";               // Define our query
+    let query2 = "SELECT * FROM Pets;";               // Define our query
 
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+    db.pool.query(query2, function(error, rows, fields){    // Execute the query
 
         res.render('pets', {data: rows});                  // Render the index.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
@@ -54,9 +57,9 @@ app.get('/pets', function(req, res)
 
 app.get('/employees', function(req, res)
 {  
-    let query1 = "SELECT * FROM Employees;";               // Define our query
+    let query3 = "SELECT * FROM Employees;";               // Define our query
 
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+    db.pool.query(query3, function(error, rows, fields){    // Execute the query
 
         res.render('employees', {data: rows});                  // Render the index.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
@@ -65,28 +68,50 @@ app.get('/employees', function(req, res)
 
 app.get('/adoptions', function(req, res)
 {  
-    let query1 = "SELECT * FROM Adoptions;";               // Define our query
+    let query4 = "SELECT * FROM Adoptions;";               // Define our query
 
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+    db.pool.query(query4, function(error, rows, fields){    // Execute the query
 
-        res.render('adoptions', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        res.render('adoptions', {data: rows});                  // Render the adoptions.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
-app.post('/add-adoption-ajax', function(req, res) 
-{
+
+
+app.get('/vaccinations', function(req, res)
+{  
+    let query4 = "SELECT * FROM Vaccinations;";               // Define our query
+
+    db.pool.query(query4, function(error, rows, fields){    // Execute the query
+
+        res.render('vaccinations', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});    
+
+// received back from the query
+app.get('/petvaccinations', function(req, res)
+{  
+    let query5 = "SELECT * FROM PetVaccinations;";               // Define our query
+
+    db.pool.query(query5, function(error, rows, fields){    // Execute the query
+
+        res.render('petvaccinations', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+
+
+
+
+
+
+app.post('/add-customer-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    // Capture NULL values
-    let employee_id = parseInt(data.employee_id);
-    if (isNaN(employee_id))
-    {
-        employee_id = 'NULL'
-    }
-
     // Create the query and run it on the database
-    query1 = `INSERT INTO Adoptions (customer_id, date, pet_id, employee_id) VALUES (${adoption_id}, ${customer_id}, ${date}, ${pet_id}, ${employee_id})`;
+    query1 = `INSERT INTO Customers(first_name, last_name, city, state, zip_code, phone_number) 
+    VALUES ('${data['input-first_name']}', '${data['input-last_name']}', '${data['input-street']}', '${data['input-city']}','${data['input-state']}','${data['input-zip_code']}','${data['input-phone_number']}'`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -96,49 +121,16 @@ app.post('/add-adoption-ajax', function(req, res)
             console.log(error)
             res.sendStatus(400);
         }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
         else
         {
-            // If there was no error, perform a SELECT * on Adoptions
-            query2 = `SELECT * FROM Adoptions;`;
-            db.pool.query(query2, function(error, rows, fields){
-
-                // If there was an error on the second query, send a 400
-                if (error) {
-                    
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                    console.log(error);
-                    res.sendStatus(400);
-                }
-                // If all went well, send the results of the query back.
-                else
-                {
-                    res.send(rows);
-                }
-            })
+            res.redirect('/customers.html');
         }
     })
 });
 
-app.get('/vaccinations', function(req, res)
-{  
-    let query1 = "SELECT * FROM Vaccinations;";               // Define our query
-
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
-
-        res.render('vaccinations', {data: rows});                  // Render the index.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
-});    
-
-// received back from the query
-app.get('/petvaccinations', function(req, res)
-{  
-    let query1 = "SELECT * FROM PetVaccinations;";               // Define our query
-
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
-
-        res.render('petvaccinations', {data: rows});                  // Render the index.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
-});                                                         // received back from the query
 
 
 /*

@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="style.css" media="screen">
 <title>Adoptions</title>
 
 <body>
@@ -48,14 +47,14 @@
 
     <br>
     <div>
-        <form id="add-adoption-form-ajax">
+        <form id="add-adoption-form-ajax" method="POST" action="/add-adoption-form">
             <fieldset>
                 <legend><strong>Add Adoption</strong></legend>
 
                 <label for="input-customer_id">customer_id: </label>
                 <select type="number" name="input-customer_id" id="input-customer_id">
-                    <option value="0">&nbsp;</option>
-                    <option value="1" selected="">1</option>
+                    <option value="0" selected="">&nbsp;</option>
+                    <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     </select><br>
@@ -65,16 +64,16 @@
 
                 <label for="input-pet_id">pet_id: </label>
                 <select type="number" name="input-pet_id" id="input-pet_id">
-                    <option value="0">&nbsp;</option>
-                    <option value="1" selected="">1</option>
+                    <option value="0" selected="">&nbsp;</option>
+                    <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     </select><br>
                     
                 <label for="input-employee_id">employee_id: </label>
                 <select type="number" name="input-employee_id" id="input-employee_id">
-                    <option value="0">&nbsp;</option>
-                    <option value="NULL" selected="">NULL</option>
+                    <option value="0" selected="">&nbsp;</option>
+                    <option value="NULL">NULL</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -83,8 +82,5 @@
             <input class="btn" type="submit" value="Add Adoption">
             <input class="btn" type="button" value="Cancel"><br><br><br>
         </form>
-
-        {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-        <script src="./js/add_adoptions.js"></script>
     </div>
 </body>

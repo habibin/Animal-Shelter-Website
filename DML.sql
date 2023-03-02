@@ -173,8 +173,9 @@ INNER JOIN Pets ON Adoptions.pet_id = Pets.pet_id
 INNER JOIN Employees ON Adoptions.employee_id = Employees.employee_id
 
 -- add new adoption --
-INSERT INTO Adoptions(date, pet_id, employee_id)
-VALUES (:dateInput,
+INSERT INTO Adoptions(customer_id,date, pet_id, employee_id)
+VALUES  ((customer_id WHERE customer_id = :customer_idInput), 
+        :dateInput,
         (pet_id WHERE pet_id = :pet_idInput),
         (employee_id WHERE employee_id = :employee_idInput))
 
