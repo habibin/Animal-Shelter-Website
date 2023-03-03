@@ -152,7 +152,7 @@ app.post('/add-pet-form', function(req, res){
 app.post('/add-employee-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    
+
     // Create the query and run it on the database
     query1 = `INSERT INTO Employees(first_name, last_name) 
     VALUES ('${data['input-first_name']}', '${data['input-last_name']}')`;
@@ -195,7 +195,7 @@ app.post('/add-vaccination-form', function(req, res){
         // presents it on the screen
         else
         {
-            res.redirect('/customers');
+            res.redirect('/vaccination');
         }
     })
 });
