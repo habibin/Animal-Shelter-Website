@@ -4,13 +4,14 @@
     SETUP
 */
 
+//express
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 PORT        = 9130;                 // Set a port number at the top so it's easy to change in the future
 
-
+//handlerbars
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
 app.engine('.hbs', engine({extname: ".hbs"}));  // Create an instance of the handlebars engine to process templates
@@ -108,10 +109,9 @@ app.get('/petvaccinations', function(req, res)
 app.post('/add-customer-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
     // Create the query and run it on the database
-    query1 = `INSERT INTO Customers(first_name, last_name, city, state, zip_code, phone_number) 
-    VALUES ('${data['input-first_name']}', '${data['input-last_name']}', '${data['input-street']}', '${data['input-city']}','${data['input-state']}','${data['input-zip_code']}','${data['input-phone_number']}'`;
+    query1 = `INSERT INTO Customers (first_name, last_name, street, city, state, zip_code, phone_number) 
+    VALUES ('${data['input-first_name']}', '${data['input-last_name']}', '${data['input-street']}', '${data['input-city']}','${data['input-state']}','${data['input-zip_code']}','${data['input-phone_number']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -126,7 +126,7 @@ app.post('/add-customer-form', function(req, res){
         // presents it on the screen
         else
         {
-            res.redirect('/customers.html');
+            res.redirect('/customers');
         }
     })
 });
