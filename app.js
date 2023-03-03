@@ -92,6 +92,25 @@ app.get('/adoptions', function (req, res) {
     });
 });
 
+app.put('/put-customer-ajax', function(req,res,next){
+    let data = req.body;
+
+    let phoneNumber = parseInt(data.phone_number);
+    let person = parseInt(data.customerID);
+
+    let queryUpdateCustomer = `UPDATE Customers SET phone_number = ? WHERE customer_id = ?`;
+
+            // Run the 1st query
+            db.pool.query(queryUpdateCustomer, [phoneNumber, person], function(error, rows, fields){
+                if (error) {
+
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+                }
+            })
+});
+
 app.get('/vaccinations', function (req, res) {
     let query4 = "SELECT * FROM Vaccinations;";               // Define our query
 
