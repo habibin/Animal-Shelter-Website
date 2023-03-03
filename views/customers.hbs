@@ -84,4 +84,25 @@
             <input type="submit" value="Add Customer">
         </form>
     </div>
+
+    <div>
+        <h2>Update A User </h2>
+        <form id="update-person-form-ajax">
+
+            <label for="input-fullname">Full name: </label>
+            <select name="input-fullname" id="nameInput">
+                <option value="test">Select a Person</option>
+                {{#each people}}
+                <option value="{{this.customer_id}}">{{this.first_name}} {{this.last_name}}</option>
+                {{/each}}
+            </select>
+            
+            <label for="input-update-phone_number">phone number: </label>
+            <input type="text" name="input-update-phone_number" id="input-update-phone_number" required="required">
+            <input type="submit">
+
+        </form>
+
+        <script src="./js/update_customer.js"></script>
+    </div>
 </body>
