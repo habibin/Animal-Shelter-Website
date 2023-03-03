@@ -282,8 +282,8 @@ app.post('/add-vaccination-form', function (req, res) {
 app.delete('/delete-customer-ajax/', function (req, res, next) {
     let data = req.body;
     let customerID = parseInt(data.id);
-    let deleteCustomer_pid = `DELETE FROM Customers WHERE pid = ?`;
-    let deleteCustomer_id = `DELETE FROM Customers WHERE id = ?`;
+    let deleteCustomer_pid = `DELETE FROM Adoptions WHERE customer_id = ?`;
+    let deleteCustomer_id = `DELETE FROM Customers WHERE customer_id = ?`;
 
 
     // Run the 1st query
@@ -296,7 +296,7 @@ app.delete('/delete-customer-ajax/', function (req, res, next) {
         }
 
         else {
-            // Run the second query
+            //Run the second query
             db.pool.query(deleteCustomer_id, [customerID], function (error, rows, fields) {
 
                 if (error) {
