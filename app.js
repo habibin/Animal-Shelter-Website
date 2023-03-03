@@ -4,13 +4,14 @@
     SETUP
 */
 
+//express
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 PORT        = 9130;                 // Set a port number at the top so it's easy to change in the future
 
-
+//handlerbars
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
 app.engine('.hbs', engine({extname: ".hbs"}));  // Create an instance of the handlebars engine to process templates
@@ -100,86 +101,10 @@ app.get('/petvaccinations', function(req, res)
 app.post('/add-customer-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    console.log(req.body)
+
     // Create the query and run it on the database
     query1 = `INSERT INTO Customers(first_name, last_name, city, state, zip_code, phone_number) 
-    VALUES ('${data['input-first_name']}', '${data['input-last_name']}', '${data['input-street']}', '${data['input-city']}','${data['input-state']}','${data['input-zip_code']}','${data['input-phone_number']}')`;
-    db.pool.query(query1, function(error, rows, fields){
-
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
-        else
-        {
-            res.redirect('/customers');
-        }
-    })
-});
-
-app.post('/add-pet-form', function(req, res){
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-    console.log(req.body)
-    // Create the query and run it on the database
-    query1 = `INSERT INTO Pets(pet_name, species, age, gender) 
-    VALUES ('${data['input-pet_name']}', '${data['input-species']}', '${data['input-age']}', '${data['input-gender']}')`;
-    db.pool.query(query1, function(error, rows, fields){
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
-        else
-        {
-            res.redirect('/pets');
-        }
-    })
-});
-
-app.post('/add-employee-form', function(req, res){
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-    console.log(req.body)
-    // Create the query and run it on the database
-    query1 = `INSERT INTO Employees(first_name, last_name) 
-    VALUES ('${data['input-first_name']}', '${data['input-last_name']}')`;
-    db.pool.query(query1, function(error, rows, fields){
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
-        else
-        {
-            res.redirect('/employees');
-        }
-    })
-});
-
-app.post('/add-vaccination-form', function(req, res){
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-    console.log(req.body)
-    // Create the query and run it on the database
-    query1 = `INSERT INTO Vaccinations(vaccination_name, age_administered, dosage, species, booster, description) 
-    VALUES ('${data['input-vaccination_name']}', '${data['input-age_administered']}', '${data['input-dosage']}', '${data['input-species']}','${data['input-booster']}','${data['input-description']}')`;
+    VALUES ('${data['input-first_name']}', '${data['input-last_name']}', '${data['input-street']}', '${data['input-city']}','${data['input-state']}','${data['input-zip_code']}','${data['input-phone_number']}'`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
