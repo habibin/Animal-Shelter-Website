@@ -9,7 +9,7 @@ var express = require('express');   // We are using the express library for the 
 var app = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-PORT = 4545;                 // Set a port number at the top so it's easy to change in the future
+PORT = 9861;                 // Set a port number at the top so it's easy to change in the future
 
 //handlerbars
 const { engine } = require('express-handlebars');
@@ -85,7 +85,7 @@ app.get('/adoptions', function (req, res) {
 
                 db.pool.query(query4, (error, employee, field) => {
 
-                    return res.render('adoptions', { data: adoption, customer: customer, pet: pet, employee:employee });                  // Render the adoptions.hbs file, and also send the renderer
+                    return res.render('adoptions', { data: adoption, customer: customer, pet: pet, employee: employee });                  // Render the adoptions.hbs file, and also send the renderer
                 });
             });
         });
@@ -168,6 +168,39 @@ app.post('/add-customer-form', function (req, res) {
         // presents it on the screen
         else {
             res.redirect('/customers');
+        }
+    })
+});
+
+
+app.post('/add-adoption-form"', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    console.log(req.body);
+
+    // Capture NULL values
+    let employee_id = parseInt(data['input-employee_id']);
+    if (isNaN(employee_id)) {
+        employee_id = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Adoptions(customer_id,date, pet_id, employee_id) 
+    VALUES (${input-customer_id}, ${inpput-date}, ${input-pet_id}, ${input-employee_id})`;
+    db.pool.query(query1, function (error, rows, fields) {
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else {
+            res.redirect('/adoptions');
         }
     })
 });
