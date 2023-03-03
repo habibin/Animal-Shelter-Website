@@ -7,42 +7,37 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View Adoptions</strong></p>
 
-    <table border="1" cellpadding="5" id="adoptions-table">
-        <tr>
-            <th></th>
-            <th></th>
-            <th>adoption_id</th>
-            <th>customer_id</th>
-            <th>date</th>
-            <th>pet_id</th>
-            <th>employee_id</th>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">1</td>
-            <td align="middle">3</td>
-            <td align="middle">2021-02-06</td>
-            <td align="middle">3</td>
-            <td align="middle">3</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">2</td>
-            <td align="middle">2</td>
-            <td align="middle">2022-05-11</td>
-            <td align="middle">2</td>
-            <td align="middle">2</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">3</td>
-            <td align="middle">3</td>
-            <td align="middle">2023-10-01</td>
-            <td align="middle">1</td>
-            <td align="middle">3</td>
+    {{!-- Creates a table --}}
+    <table border="1" cellpadding="5" id="adoption-table">
+
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the customer_id, first_name, last_name, street, city, state, 
+            zip_code, and phone_number, in order --}}
+            {{#each data}}
+                <td>{{this.adoption_id}}</td>
+                <td>{{this.customer_id}}</td>
+                <td>{{this.date}}</td>
+                <td>{{this.pet_id}}</td>
+                <td>{{this.employee_id}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 
     <br>
@@ -53,10 +48,10 @@
 
                 <label for="input-customer_id">customer_id: </label>
                 <select type="number" name="input-customer_id" id="input-customer_id">
-                    <option value="0" selected="">&nbsp;</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    <option value="">Select a customer_id</option>
+                    {{#each Customers}}
+                    <option value="{{this.customer_id}}">{{this.customer_id}}</option>
+                    {{/each}}
                     </select><br>
 
                 <label for="input-date">date: </label>
@@ -80,7 +75,6 @@
                     </select><br>
             </fieldset><br>
             <input class="btn" type="submit" value="Add Adoption">
-            <input class="btn" type="button" value="Cancel"><br><br><br>
         </form>
     </div>
 </body>

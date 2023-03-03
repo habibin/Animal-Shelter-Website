@@ -9,7 +9,7 @@ var express = require('express');   // We are using the express library for the 
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-PORT        = 9130;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 9131;                 // Set a port number at the top so it's easy to change in the future
 
 //handlerbars
 const { engine } = require('express-handlebars');
@@ -103,7 +103,7 @@ app.post('/add-customer-form', function(req, res){
     let data = req.body;
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Customers(first_name, last_name, city, state, zip_code, phone_number) 
+    query1 = `INSERT INTO Customers(first_name, last_name, city, street, state, zip_code, phone_number) 
     VALUES ('${data['input-first_name']}', '${data['input-last_name']}', '${data['input-street']}', '${data['input-city']}','${data['input-state']}','${data['input-zip_code']}','${data['input-phone_number']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
@@ -203,24 +203,24 @@ app.post('/add-vaccination-form', function(req, res){
 
 app.delete('/delete-customer-ajax/', function(req,res,next){
     let data = req.body;
-    let customerid = parseInt(data.customer_id);
+    let customerID = parseInt(data.id);
     let deleteCustomer_pid = `DELETE FROM Customers WHERE pid = ?`;
-    let deleteCustomer_id= `DELETE FROM Customers WHERE id = ?`;
+    let deleteCustomer_id= `DELETE FROM Customers WHERE customer_id = ?`;
   
   
-          // Run the 1st query
-          db.pool.query(deleteCustomer_pid, [customerid], function(error, rows, fields){
-              if (error) {
+        //   // Run the 1st query
+        //   db.pool.query(deleteCustomer_pid, [customerID], function(error, rows, fields){
+        //       if (error) {
   
-              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-              console.log(error);
-              res.sendStatus(400);
-              }
+        //       // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        //       console.log(error);
+        //       res.sendStatus(400);
+        //       }
   
-              else
+        //       else
               {
                   // Run the second query
-                  db.pool.query(deleteCustomer_id, [customerid], function(error, rows, fields) {
+                  db.pool.query(deleteCustomer_id, [customerID], function(error, rows, fields) {
   
                       if (error) {
                           console.log(error);
@@ -230,7 +230,8 @@ app.delete('/delete-customer-ajax/', function(req,res,next){
                       }
                   })
               }
-  })});
+//   })
+});
 
 
 /*
