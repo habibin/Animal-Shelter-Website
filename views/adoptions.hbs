@@ -42,7 +42,7 @@
 
     <br>
     <div>
-        <form id="add-adoption-form-ajax" method="POST" action="/add-adoption-form">
+        <form id="add-adoption-form" method="POST" action="/add-adoption-form">
             <fieldset>
                 <legend><strong>Add Adoption</strong></legend>
 
@@ -50,7 +50,7 @@
                 <select type="number" name="input-customer_id" id="input-customer_id" required>
                     <option value="">Select a customer</option>
                     {{#each customer}}
-                    <option value="{{this.id}}">{{this.customer_id}}</option>
+                    <option value="{{this.customer_id}}">{{this.customer_id}}</option>
                     {{/each}}
                     </select><br>
 
@@ -61,7 +61,7 @@
                 <select type="number" name="input-pet_id" id="input-pet_id" required>
                       <option value="">Select a pet</option>
                     {{#each pet}}
-                    <option value="{{this.id}}">{{this.pet_id}}</option>
+                    <option value="{{this.pet_id}}">{{this.pet_id}}</option>
                     {{/each}}
                     </select><br>
                     
@@ -70,7 +70,7 @@
                     <option value="">Select a employee</option>
                     <option value="NULL">NULL</option>
                     {{#each employee}}
-                    <option value="{{this.id}}">{{this.employee_id}}</option>
+                    <option value="{{this.employee_id}}">{{this.employee_id}}</option>
                     {{/each}}
                     </select><br>
             </fieldset><br>

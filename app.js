@@ -137,7 +137,7 @@ app.post('/add-customer-form', function (req, res) {
 });
 
 
-app.post('/add-adoption-form"', function (req, res) {
+app.post('/add-adoption-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
     console.log(req.body);
@@ -145,12 +145,17 @@ app.post('/add-adoption-form"', function (req, res) {
     // Capture NULL values
     let employee_id = parseInt(data['input-employee_id']);
     if (isNaN(employee_id)) {
-        employee_id = 'NULL'
+        employee_id_check = null
+    }
+    else {
+        employee_id_check = parseInt(data['input-employee_id'])
     }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Adoptions(customer_id,date, pet_id, employee_id) 
-    VALUES (${input-customer_id}, ${inpput-date}, ${input-pet_id}, ${input-employee_id})`;
+    
+
+    query1 = `INSERT INTO Adoptions(customer_id, date, pet_id, employee_id) 
+    VALUES ('${data['input-customer_id']}', '${data['input-date']}', '${data['input-pet_id']}', ${employee_id_check})`;
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error

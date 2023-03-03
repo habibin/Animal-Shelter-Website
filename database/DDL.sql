@@ -64,7 +64,7 @@ CREATE OR REPLACE TABLE Adoptions (
     customer_id int NOT NULL,
     date date NOT NULL,
     pet_id int NOT NULL,
-    employee_id int DEFAULT NULL,
+    employee_id int Default NULL,
     PRIMARY KEY(adoption_id),
     FOREIGN KEY(customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE,
     FOREIGN KEY(pet_id) REFERENCES Pets(pet_id) ON DELETE CASCADE,
