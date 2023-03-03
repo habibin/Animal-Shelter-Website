@@ -48,9 +48,9 @@
 
                 <label for="input-customer_id">customer_id: </label>
                 <select type="number" name="input-customer_id" id="input-customer_id">
-                    <option value="">Select a customer_id</option>
-                    {{#each Customers}}
-                    <option value="{{this.customer_id}}">{{this.customer_id}}</option>
+                    <option value="">Select a customer</option>
+                    {{#each customer}}
+                    <option value="{{this.id}}">{{this.customer_id}}</option>
                     {{/each}}
                     </select><br>
 
@@ -59,19 +59,18 @@
 
                 <label for="input-pet_id">pet_id: </label>
                 <select type="number" name="input-pet_id" id="input-pet_id">
-                    <option value="0" selected="">&nbsp;</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                      <option value="">Select a pet</option>
+                    {{#each pet}}
+                    <option value="{{this.id}}">{{this.pet_id}}</option>
+                    {{/each}}
                     </select><br>
                     
                 <label for="input-employee_id">employee_id: </label>
                 <select type="number" name="input-employee_id" id="input-employee_id">
-                    <option value="0" selected="">&nbsp;</option>
-                    <option value="NULL">NULL</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    <option value="">Select a employee</option>
+                    {{#each employee}}
+                    <option value="{{this.id}}">{{this.employee_id}}</option>
+                    {{/each}}
                     </select><br>
             </fieldset><br>
             <input class="btn" type="submit" value="Add Adoption">
