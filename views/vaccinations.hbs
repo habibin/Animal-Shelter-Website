@@ -7,107 +7,67 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View Vaccinations</strong></p>
 
-    <table border="1" cellpadding="5" id="vaccinations-table">
-        <tr>
-            <th></th>
-            <th></th>
-            <th>vaccination_id</th>
-            <th>vaccination_name</th>
-            <th>age_administered</th>
-            <th>dosage</th>
-            <th>species</th>
-            <th>booster</th>
-            <th>description</th>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">1</td>
-            <td align="middle">Rabies</td>
-            <td align="middle">3 months</td>
-            <td align="middle">1 Dose</td>
-            <td align="middle">Dog</td>
-            <td align="middle">Annual</td>
-            <td align="middle">Rabies is 100% fatal to dogs, with no treatment available.</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">2</td>
-            <td align="middle">Parvovirus</td>
-            <td align="middle">6 - 16 Weeks</td>
-            <td align="middle">3 Doses</td>
-            <td align="middle">Dog</td>
-            <td align="middle">1 Year</td>
-            <td align="middle">Canine "parvo" is contagious, and can cause severe vomiting and bloody diarrhea</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">3</td>
-            <td align="middle">Parvovirus</td>
-            <td align="middle">Over 16 Weeks</td>
-            <td align="middle">2 Doses</td>
-            <td align="middle">Dog</td>
-            <td align="middle">Every 3 Years</td>
-            <td align="middle">Canine "parvo" is contagious, and can cause severe vomiting and bloody diarrhea</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">4</td>
-            <td align="middle">Rabies</td>
-            <td align="middle">8 - 16 Weeks</td>
-            <td align="middle">1 Dose</td>
-            <td align="middle">Cat</td>
-            <td align="middle">Annual</td>
-            <td align="middle">Rabies is 100% fatal to cats, with no treatment available.</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">5</td>
-            <td align="middle">Feline Herpesvirus</td>
-            <td align="middle">6 - 20 Weeks</td>
-            <td align="middle">3 Dose</td>
-            <td align="middle">Cat</td>
-            <td align="middle">Every 3 Years</td>
-            <td align="middle">Feline herpesvirus causes feline viral rhinotracheitis</td>
-        </tr>
+    <table border="1" cellpadding="5">
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the customer_id, first_name, last_name, street, city, state, 
+            zip_code, and phone_number, in order --}}
+            {{#each data}}
+            <tr>
+                <td>{{this.vaccination_id}}</td>
+                <td>{{this.vaccination_name}}</td>
+                <td>{{this.age_administered}}</td>
+                <td>{{this.dosage}}</td>
+                <td>{{this.species}}</td>
+                <td>{{this.booster}}</td>
+                <td>{{this.description}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 
+
+
     <br>
+
     <div>
-        <form action="">
+        <form id="add-vaccination-form" method="POST" action="/add-vaccination-form">
             <fieldset>
                 <legend><strong>Add Vaccination</strong></legend>
-                <label>vaccination name: </label><input type="text" name="vaccination_name"><br>
-                <label>age administered: </label><input type="text" name="age_administered"><br>
-                <label>dosage: </label><input type="text" name="dosage"><br>
-                <label>species: </label><input type="text" name="species"><br>
-                <label>booster: </label><input type="text" name="booster"><br>
-                <label>description: </label><input type="text" name="description"><br>
+                <label for="input-vaccination_name">vaccination name: </label>
+                <input type="text" name="input-vaccination_name" id="input-vaccination_name" required="required">
+                
+                <label for="input-age_administered">age administered: </label>
+                <input type="text" name="input-age_administered" id="input-age_administered" required="required">
+
+                <label for="input-dosage">dosage: </label>
+                <input type="text" name="input-dosage" id="input-dosage" required="required">
+
+                <label for="input-species">species: </label>
+                <input type="text" name="input-species" id="input-species" required="required">
+
+                <label for="input-booster">booster: </label>
+                <input type="text" name="input-booster" id="input-booster" required="required">
+
+                <label for="input-description">description: </label>
+                <input type="text" name="input-description" id="input-description" required="required">
             </fieldset><br>
-            <input class="btn" type="submit" value="Add Vaccination">
-            <input class="btn" type="button" value="Cancel"><br><br><br>
-            <fieldset>
-                <legend><strong>Update Vaccination</strong></legend>
-                <label>vaccination name: </label><input type="text" name="vaccination_name"><br>
-                <label>age administered: </label><input type="text" name="age_administered"><br>
-                <label>dosage: </label><input type="text" name="dosage"><br>
-                <label>species: </label><input type="text" name="species"><br>
-                <label>booster: </label><input type="text" name="booster"><br>
-                <label>description: </label><input type="text" name="description"><br>
-            </fieldset><br>
-            <input class="btn" type="submit" value="Update Vaccination">
-            <input class="btn" type="button" value="Cancel"><br><br><br>
-            <fieldset>
-                <legend><strong>Delete Vaccination</strong></legend>
-                <label>vaccination_id: </label><input type="text" name="first_name">
-            </fieldset><br>
-            <input class="btn" type="submit" value="Delete Vaccination">
-            <input class="btn" type="button" value="Cancel">
+            <input type="submit" value="Add Vaccination">
         </form>
     </div>
-
 </body>

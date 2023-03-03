@@ -7,60 +7,51 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View Employees</strong></p>
 
-    <table border="1" cellpadding="5" id="employees-table">
-        <tr>
-            <th></th>
-            <th></th>
-            <th>employee_id</th>
-            <th>first_name</th>
-            <th>last_name</th>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">1</td>
-            <td align="middle">Coral</td>
-            <td align="middle">Aquirere</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">2</td>
-            <td align="middle">Ismail</td>
-            <td align="middle">England</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">3</td>
-            <td align="middle">Lily</td>
-            <td align="middle">Peck</td>
+    <table border="1" cellpadding="5">
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the customer_id, first_name, last_name, street, city, state, 
+            zip_code, and phone_number, in order --}}
+            {{#each data}}
+            <tr>
+                <td>{{this.pet_id}}</td>
+                <td>{{this.first_name}}</td>
+                <td>{{this.last_name}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 
+
+
     <br>
+
     <div>
-        <form action="">
+        <form id="add-employee-form" method="POST" action="/add-employee-form">
             <fieldset>
-                <legend><strong>Add Employee</strong></legend>
-                <label>first name: </label><input type="text" name="first_name"><br>
-                <label>last name: </label><input type="text" name="last_name"><br>
+                <legend><strong>Add employee</strong></legend>
+                <label for="input-first_name">first name: </label>
+                <input type="text" name="input-first_name" id="input-first_name" required="required">
+                
+                <label for="input-last_name">last name: </label>
+                <input type="text" name="input-last_name" id="input-last_name" required="required">
             </fieldset><br>
-            <input class="btn" type="submit" value="Add Employee">
-            <input class="btn" type="button" value="Cancel"><br><br><br>
-            <fieldset>
-                <legend><strong>Update Employee</strong></legend>
-                <label>first name: </label><input type="text" name="first_name"><br>
-                <label>last name: </label><input type="text" name="last_name"><br>
-            </fieldset><br>
-            <input class="btn" type="submit" value="Update Employee">
-            <input class="btn" type="button" value="Cancel"><br><br><br>
-            <fieldset>
-                <legend><strong>Delete Employee</strong></legend>
-                <label>employee_id: </label><input type="text" name="first_name">
-            </fieldset><br>
-            <input class="btn" type="submit" value="Delete Employee">
-            <input class="btn" type="button" value="Cancel">
+            <input type="submit" value="Add Employee">
         </form>
     </div>
-
 </body>
