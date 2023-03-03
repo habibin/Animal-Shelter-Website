@@ -133,6 +133,38 @@ app.post('/add-customer-form', function(req, res){
 
 
 
+app.delete('/delete-customer-ajax/', function(req,res,next){
+    let data = req.body;
+    let customerid = parseInt(data.customer_id);
+    let deleteCustomer_pid = `DELETE FROM Customers WHERE pid = ?`;
+    let deleteCustomer_id= `DELETE FROM Customers WHERE id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteCustomer_pid, [customerid], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteCustomer_id, [customerid], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
+
+
 /*
     LISTENER
 */

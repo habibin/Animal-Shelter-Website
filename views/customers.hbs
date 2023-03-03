@@ -1,5 +1,6 @@
 <title>Customers</title>
 
+
 <body>
     <h1>Customers</h1>
         [ <a href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
@@ -7,7 +8,12 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View Customers</strong></p>
 
-    <table border="1" cellpadding="5">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="./js/delete_customer.js"></script>
+
+    {{!-- Creates a table --}}
+    <table border="1" cellpadding="5" id="customer-table">
+
         {{!-- Header section --}}
         <thead>
 
@@ -19,6 +25,7 @@
                     {{@key}}
                 </th>
                 {{/each}}
+                <th>delete</th>
             </tr>
         </thead>
 
@@ -28,7 +35,7 @@
             {{!-- For each row, print the customer_id, first_name, last_name, street, city, state, 
             zip_code, and phone_number, in order --}}
             {{#each data}}
-            <tr>
+            <tr data-value={{this.customer_id}}></tr>
                 <td>{{this.customer_id}}</td>
                 <td>{{this.first_name}}</td>
                 <td>{{this.last_name}}</td>
@@ -37,10 +44,12 @@
                 <td>{{this.state}}</td>
                 <td>{{this.zip_code}}</td>
                 <td>{{this.phone_number}}</td>
+                <td><button onclick="deletecustomer({{this.customer_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
+    
 
 
 
