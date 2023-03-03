@@ -7,60 +7,63 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View PetVaccinations</strong></p>
 
-    <table border="1" cellpadding="5" id="petvaccinations-table">
-        <tr>
-            <th></th>
-            <th></th>
-            <th>petvaccination_id</th>
-            <th>date</th>
-            <th>pet_id</th>
-            <th>vaccination_id</th>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">1</td>
-            <td align="middle">2019-02-06</td>
-            <td align="middle">3</td>
-            <td align="middle">5</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">2</td>
-            <td align="middle">2015-05-11</td>
-            <td align="middle">2</td>
-            <td align="middle">2</td>
-        </tr>
-        <tr>
-            <td><a href="#" onclick="showform('update')">Edit</a></td>
-            <td><a href="#" onclick="showform('update')">Delete</a></td>
-            <td align="middle">3</td>
-            <td align="middle">2019-10-01</td>
-            <td align="middle">1</td>
-            <td align="middle">4</td>
-        </tr>
-    </table>
+       <table border="1" cellpadding="5">
+        {{!-- Header section --}}
+        <thead>
 
-    <br>
-    <form action="">
-        <fieldset>
-            <legend><strong>Add PetVaccination</strong></legend>
-            <label>date: </label><input type="date" name="date"><br>
-            <label>pet_id: </label>
-            <select name="pet_id">
-                <option value="0">&nbsp;</option>
-                <option value="1" selected="">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                </select><br>
-            <label>vaccination_id: </label>
-            <select name="vaccination_id">
-                <option value="0">&nbsp;</option>
-                <option value="1" selected="">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                </select><br>
-        </fieldset><br>
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
 
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the customer_id, first_name, last_name, street, city, state, 
+            zip_code, and phone_number, in order --}}
+            {{#each data}}
+            <tr>
+                <td>{{this.petvaccination_id}}</td>
+                <td>{{this.date}}</td>
+                <td>{{this.pet_id}}</td>
+                <td>{{this.vaccination_id}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>  
+
+    <div>
+        <form id="add-pVaccination-form-ajax" method="POST" action="/add-pVaccination-form">
+            <fieldset>
+                <legend><strong>Add Pet Vaccination</strong></legend>
+
+                <label for="input-pet_id">pet id: </label>
+                <select type="number" name="input-pet_id" id="input-pet_id">
+                    <option value="">Select a pet id</option>
+                    {{#each pet}}
+                    <option value="{{this.pet_id}}">{{this.pet_id}}</option>
+                    {{/each}}
+                    </select><br>
+
+                <label for="input-date">date: </label>
+                <input type="date" name="input-date" id="input-date"></input><br>
+
+                <label for="input-vaccination_id">vaccination_id: </label>
+                <select type="number" name="input-vaccination_id" id="input-vaccination_id">
+                      <option value="">Select a vaccination id</option>
+                    {{#each vaccination}}
+                    <option value="{{this.vaccination_id}}">{{this.vaccination_id}}</option>
+                    {{/each}}
+                    </select><br>
+                    
+            </fieldset><br>
+            <input class="btn" type="submit" value="Add Pet Vaccination">
+        </form>
+    </div>
 </body>

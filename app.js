@@ -103,13 +103,49 @@ app.get('/vaccinations', function (req, res) {
 
 // received back from the query
 app.get('/petvaccinations', function (req, res) {
-    let query5 = "SELECT * FROM PetVaccinations;";               // Define our query
+    let query1 = "SELECT * FROM PetVaccinations;";               // Define our query
+    let query2 = "SELECT * FROM Pets;";               // Define our query
+    let query3 = "SELECT * FROM Vaccinations;";               // Define our query             // Define our query
 
-    db.pool.query(query5, function (error, rows, fields) {    // Execute the query
 
-        res.render('petvaccinations', { data: rows });                  // Render the index.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+    db.pool.query(query1, function (error, petvaccinations, fields) {    // Execute the query
+
+        db.pool.query(query2, (error, pet, field) => {
+
+            db.pool.query(query3, (error, vaccination, field) => {
+
+                return res.render('petvaccinations', { data: petvaccinations, pet: pet, vaccination: vaccination});                  // Render the adoptions.hbs file, and also send the renderer
+
+            });
+        });
+    });
 });                                                         // received back from the query
+
+
+app.post('/add-pVaccination-form', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    console.log(data);
+    // Create the query and run it on the database
+    query1 = `INSERT INTO PetVaccinations(date, pet_id, vaccination_id) 
+    VALUES ('${data['input-date']}', '${data['input-pet_id']}', '${data['input-vaccination_id']}')`;
+    db.pool.query(query1, function (error, rows, fields) {
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else {
+            res.redirect('/petvaccinations');
+        }
+    })
+});
 
 app.post('/add-customer-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
@@ -251,12 +287,12 @@ app.post('/add-vaccination-form', function (req, res) {
 app.delete('/delete-customer-ajax/', function (req, res, next) {
     let data = req.body;
     let customerID = parseInt(data.id);
-    let deleteCustomer_pid = `DELETE FROM Customers WHERE pid = ?`;
-    let deleteCustomer_id = `DELETE FROM Customers WHERE id = ?`;
+    let deleteCustomer_pid = `DELETE FROM Adoptions WHERE customer_id = ?`;
+    let deleteCustomer_id = `DELETE FROM Customers WHERE customer_id = ?`;
 
 
     // Run the 1st query
-    db.pool.query(deleteCustomer_pid, [customerid], function (error, rows, fields) {
+    db.pool.query(deleteCustomer_pid, [customerID], function (error, rows, fields) {
         if (error) {
 
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -265,8 +301,8 @@ app.delete('/delete-customer-ajax/', function (req, res, next) {
         }
 
         else {
-            // Run the second query
-            db.pool.query(deleteCustomer_id, [customerid], function (error, rows, fields) {
+            //Run the second query
+            db.pool.query(deleteCustomer_id, [customerID], function (error, rows, fields) {
 
                 if (error) {
                     console.log(error);
