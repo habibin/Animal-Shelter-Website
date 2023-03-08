@@ -166,7 +166,7 @@ app.post('/add-pVaccination-form', function (req, res) {
     })
 });
 
-app.post('/add-customer-form', function (req, res) {
+app.post('/add-customer-ajax', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
@@ -186,7 +186,7 @@ app.post('/add-customer-form', function (req, res) {
         // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
         // presents it on the screen
         else {
-            res.redirect('/customers');
+            res.send(rows);
         }
     })
 });

@@ -43,20 +43,18 @@
                 <td>{{this.city}}</td>
                 <td>{{this.state}}</td>
                 <td>{{this.zip_code}}</td>
-                <td>{{this.phone_number}}</td>
+                <td id="phone_number_change">{{this.phone_number}}</td>
                 <td><button onclick="deletecustomer({{this.customer_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-    
-
 
 
     <br>
 
     <div>
-        <form id="add-customer-form" method="POST" action="/add-customer-form">
+        <form id="add-customer-form-ajax">
             <fieldset>
                 <legend><strong>Add Customer</strong></legend>
                 <label for="input-first_name">first name: </label>
@@ -72,21 +70,25 @@
                 <input type="text" name="input-city" id="input-city" required="required">
 
                 <label for="input-state">state: </label>
-                <input type="text" name="input-state" id="input-state" required="required">
+                <input type="text" name="input-state" id="input-state" maxlength = "2" required="required">
 
                 <label for="input-zip_code">zip code: </label>
-                <input type="text" name="input-zip_code" id="input-zip_code" required="required">
+                <input type="text" name="input-zip_code" id="input-zip_code" pattern="[0-9]+" maxlength = "5" required="required">
 
                 <label for="input-phone_number">phone number: </label>
-                <input type="text" name="input-phone_number" id="input-phone_number" required="required">
+                <input type="tel" name="input-phone_number" id="input-phone_number" pattern="[0-9]+"  maxlength = "10" required="required"/>
 
             </fieldset><br>
             <input type="submit" value="Add Customer">
         </form>
     </div>
 
+    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+    <script src="./js/add_customer.js"></script>
+
+
     <div>
-        <h2>Update A User </h2>
+        <h2>Update A Customer </h2>
         <form id="update-person-form-ajax">
 
             <label for="input-fullname">Full name: </label>
@@ -98,7 +100,7 @@
             </select>
             
             <label for="input-update-phone_number">phone number: </label>
-            <input type="text" name="input-update-phone_number" id="input-update-phone_number" required="required">
+            <input type="text" name="input-update-phone_number" id="input-update-phone_number" pattern="[0-9]+"  maxlength = "10" required="required">
             <input type="submit">
 
         </form>
