@@ -15,17 +15,11 @@ updatePersonForm.addEventListener("submit", function (e) {
     let customerValue = customer.value;
     let phoneNumber = inputPhone.value;
     
-    console.log(customer);
-    console.log(customerValue);
-    console.log(phoneNumber);
-
     // Put our data we want to send in a javascript object
     let data = {
         customerID: customerValue,
         phone_number: phoneNumber,
     }
-    
-    console.log(data);
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
@@ -53,8 +47,8 @@ updatePersonForm.addEventListener("submit", function (e) {
 
 function updateRow(data, personID){
     let parsedData = JSON.parse(data);
-    console.log(parsedData);
-    let table = document.getElementById("people-table");
+
+    let table = document.getElementById("customer-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
        //iterate through rows
@@ -62,13 +56,11 @@ function updateRow(data, personID){
        if (table.rows[i].getAttribute("data-value") == personID) {
 
             // Get the location of the row where we found the matching person ID
-            let updateRowIndex = table.getElementsByTagName("td")[i];
-
+            let updateRowIndex = table.getElementsByTagName("tr")[i];
             // Get td of homeworld value
             let td = updateRowIndex.getElementsByTagName("td")[7];
-
             // Reassign homeworld to our value we updated to
-            td.innerHTML = parsedData[0].name; 
+            td.innerHTML = parsedData[0].phone_number; 
        }
     }
 }

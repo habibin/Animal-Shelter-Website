@@ -104,11 +104,13 @@ addRowToTable = (data) => {
     zip_codeCell.innerText = newRow.zip_code;
     phone_numberCell.innerText = newRow.phone_number;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
+    deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onclick = function(){
         deleteCustomer(newRow.customer_id);
     };
+    deleteCell.appendChild(deleteButton);
+
 
     // Add the cells to the row 
     row.appendChild(idCell);
@@ -126,4 +128,9 @@ addRowToTable = (data) => {
     
     // Add the row to the table
     currentTable.appendChild(row);
+    let selectMenu = document.getElementById("nameInput");
+    let option = document.createElement("option");
+    option.text = newRow.first_name + ' ' + newRow.last_name;
+    option.value = newRow.customer_id;
+    selectMenu.add(option);
 }

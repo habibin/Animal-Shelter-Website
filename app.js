@@ -97,6 +97,7 @@ app.put('/put-customer-ajax', function (req, res, next) {
     let person = parseInt(data.customerID);
 
     let queryUpdateCustomer = `UPDATE Customers SET phone_number = ? WHERE customer_id = ?`;
+    let selectCustomers = `SELECT * FROM Customers WHERE customer_id = ?`
 
     // Run the 1st query
     db.pool.query(queryUpdateCustomer, [phoneNumber, person], function (error, rows, fields) {
@@ -105,6 +106,16 @@ app.put('/put-customer-ajax', function (req, res, next) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
             res.sendStatus(400);
+        }else{
+            db.pool.query(selectCustomers, [person], function(error, rows, fields)
+            {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
         }
     })
 });
