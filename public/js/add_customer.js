@@ -25,8 +25,6 @@ addCustomerForm.addEventListener("submit", function (e) {
     let zip_codeValue = inputZip_code.value;
     let phone_numberValue = inputPhone_number.value;
 
-    console.log(firstNameValue);
-
     // Put our data we want to send in a javascript object
     let data = {
         first_name: firstNameValue,
@@ -53,7 +51,7 @@ addCustomerForm.addEventListener("submit", function (e) {
             // Clear the input fields for another transaction
             inputFirstName.value = '';
             inputLastName.value = '';
-            inputStreet.value;
+            inputStreet.value = '';
             inputCity.value = '';
             inputState.value = '';
             inputZip_code.value = ''; 
@@ -83,8 +81,6 @@ addRowToTable = (data) => {
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
-    console.log(parsedData);
-    console.log(newRow);
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
@@ -96,6 +92,7 @@ addRowToTable = (data) => {
     let stateCell = document.createElement("TD");
     let zip_codeCell = document.createElement("TD");
     let phone_numberCell = document.createElement("TD");
+    let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
     idCell.innerText = newRow.customer_id;
@@ -107,6 +104,12 @@ addRowToTable = (data) => {
     zip_codeCell.innerText = newRow.zip_code;
     phone_numberCell.innerText = newRow.phone_number;
 
+    deleteCell = document.createElement("button");
+    deleteCell.innerHTML = "Delete";
+    deleteCell.onclick = function(){
+        deleteCustomer(newRow.customer_id);
+    };
+
     // Add the cells to the row 
     row.appendChild(idCell);
     row.appendChild(firstNameCell);
@@ -116,6 +119,10 @@ addRowToTable = (data) => {
     row.appendChild(stateCell);
     row.appendChild(zip_codeCell);
     row.appendChild(phone_numberCell);
+    row.appendChild(deleteCell);
+
+    // Add a row attribute so the deleteRow function can find a newly added row
+    row.setAttribute('data-value', newRow.customer_id);
     
     // Add the row to the table
     currentTable.appendChild(row);
