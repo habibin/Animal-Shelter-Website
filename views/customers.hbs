@@ -8,10 +8,10 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View Customers</strong></p>
 
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="./js/delete_customer.js"></script>
-<script src="./js/add_customer.js"></script>
-<script src="./js/update_customer.js"></script>
+
 
     {{!-- Creates a table --}}
     <table border="1" cellpadding="5" id="customer-table">
@@ -60,31 +60,32 @@
             <fieldset>
                 <legend><strong>Add Customer</strong></legend>
                 <label for="input-first_name">first name: </label>
-                <input type="text" name="input-first_name" id="input-first_name" required="required">
+                <input type="text" name="input-first_name" id="input-first_name" required="required"/>
                 
                 <label for="input-last_name">last name: </label>
-                <input type="text" name="input-last_name" id="input-last_name" required="required">
+                <input type="text" name="input-last_name" id="input-last_name" required="required"/>
 
                 <label for="input-street">street: </label>
-                <input type="text" name="input-street" id="input-street" required="required">
+                <input type="text" name="input-street" id="input-street" required="required"/>
 
                 <label for="input-city">city: </label>
-                <input type="text" name="input-city" id="input-city" required="required">
+                <input type="text" name="input-city" id="input-city" required="required"/>
 
                 <label for="input-state">state: </label>
-                <input type="text" name="input-state" id="input-state" maxlength = "2" required="required">
+                <input type="text" name="input-state" id="input-state" maxlength = "2" required="required"/>
 
                 <label for="input-zip_code">zip code: </label>
-                <input type="text" name="input-zip_code" id="input-zip_code" pattern="[0-9]+" maxlength = "5" required="required">
+                <input type="text" name="input-zip_code" id="input-zip_code" pattern="[0-9]+" maxlength = "5" required="required"/>
 
                 <label for="input-phone_number">phone number: </label>
-                <input type="tel" name="input-phone_number" id="input-phone_number" pattern="[0-9]+"  maxlength = "10" required="required"/>
+                <input type="text" name="input-phone_number" id="input-phone_number" pattern="[0-9]+"  maxlength = "10" required="required"/>
 
             </fieldset><br>
-            <input type="submit" value="Add Customer">
+            <input type="submit"/>
         </form>
     </div>
 
+    <script src="./js/add_customer.js"></script>
 
     <div>
         <h2>Update A Customer </h2>
@@ -105,4 +106,5 @@
         </form>
 
     </div>
+    <script src="./js/update_customer.js"></script>
 </body>

@@ -1,5 +1,5 @@
 // Get the objects we need to modify
-let addCustomerForm = document.getElementById('add-customer-form-ajax');
+let addCustomerForm = document.getElementById("add-customer-form-ajax");
 
 // Modify the objects we need
 addCustomerForm.addEventListener("submit", function (e) {
@@ -21,10 +21,11 @@ addCustomerForm.addEventListener("submit", function (e) {
     let lastNameValue = inputLastName.value;
     let streetValue = inputStreet.value;
     let cityValue = inputCity.value;
-    let stateValue = let inputState.value;
+    let stateValue = inputState.value;
     let zip_codeValue = inputZip_code.value;
     let phone_numberValue = inputPhone_number.value;
 
+    console.log(firstNameValue);
 
     // Put our data we want to send in a javascript object
     let data = {
@@ -82,6 +83,8 @@ addRowToTable = (data) => {
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
+    console.log(parsedData);
+    console.log(newRow);
 
     // Create a row and 4 cells
     let row = document.createElement("TR");

@@ -8,11 +8,9 @@
 var express = require('express');   // We are using the express library for the web server
 var app = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'))
-app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-PORT = 9861;                 // Set a port number at the top so it's easy to change in the future
+app.use(express.static('public'))
+PORT = 9865;                 // Set a port number at the top so it's easy to change in the future
 
 //handlerbars
 const { engine } = require('express-handlebars');
@@ -23,9 +21,6 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 
 // Database
 var db = require('./database/db-connector')
-
-//static files
-app.use(express.static('public'));
 
 /*
     ROUTES
@@ -95,7 +90,7 @@ app.get('/adoptions', function (req, res) {
     });
 });
 
-app.put('/put-customer-ajax', function(req,res,next){
+app.put('/put-customer-ajax', function (req, res, next) {
     let data = req.body;
 
     let phoneNumber = parseInt(data.phone_number);
@@ -103,15 +98,15 @@ app.put('/put-customer-ajax', function(req,res,next){
 
     let queryUpdateCustomer = `UPDATE Customers SET phone_number = ? WHERE customer_id = ?`;
 
-            // Run the 1st query
-            db.pool.query(queryUpdateCustomer, [phoneNumber, person], function(error, rows, fields){
-                if (error) {
+    // Run the 1st query
+    db.pool.query(queryUpdateCustomer, [phoneNumber, person], function (error, rows, fields) {
+        if (error) {
 
-                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                console.log(error);
-                res.sendStatus(400);
-                }
-            })
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+    })
 });
 
 app.get('/vaccinations', function (req, res) {
@@ -136,7 +131,7 @@ app.get('/petvaccinations', function (req, res) {
 
             db.pool.query(query3, (error, vaccination, field) => {
 
-                return res.render('petvaccinations', { data: petvaccinations, pet: pet, vaccination: vaccination});                  // Render the adoptions.hbs file, and also send the renderer
+                return res.render('petvaccinations', { data: petvaccinations, pet: pet, vaccination: vaccination });                  // Render the adoptions.hbs file, and also send the renderer
 
             });
         });
@@ -175,7 +170,7 @@ app.post('/add-customer-ajax', function (req, res) {
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Customers(first_name, last_name, street, city, state, zip_code, phone_number) 
-    VALUES ('${data['input-first_name']}', '${data['input-last_name']}', '${data['input-street']}', '${data['input-city']}','${data['input-state']}','${data['input-zip_code']}','${data['input-phone_number']}')`;
+    VALUES ('${data.first_name}', '${data.last_name}', '${data.street}', '${data.city}','${data.state}','${data.zip_code}','${data.phone_number}')`;
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error
@@ -186,10 +181,25 @@ app.post('/add-customer-ajax', function (req, res) {
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
         else {
-            res.send(rows);
+            // If there was no error, perform a SELECT * on bsg_people
+            query2 = `SELECT * FROM Customers;`;
+            db.pool.query(query2, function (error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+
+                // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+                // presents it on the screen
+                else {
+                    res.send(rows);
+                }
+            })
         }
     })
 });
@@ -210,7 +220,7 @@ app.post('/add-adoption-form', function (req, res) {
     }
 
     // Create the query and run it on the database
-    
+
 
     query1 = `INSERT INTO Adoptions(customer_id, date, pet_id, employee_id) 
     VALUES ('${data['input-customer_id']}', '${data['input-date']}', '${data['input-pet_id']}', ${employee_id_check})`;
