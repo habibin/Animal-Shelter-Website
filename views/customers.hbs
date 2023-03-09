@@ -16,7 +16,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
-
     {{!-- Creates a table --}}
     <table id="customer-table">
 
@@ -76,13 +75,15 @@
                 <input type="text" name="input-city" id="input-city" required="required"/>
 
                 <label for="input-state">state: </label>
-                <input type="text" name="input-state" id="input-state" maxlength = "2" required="required"/>
+                <input type="text" name="input-state" id="input-state" minlength="2" maxlength = "2" required="required"/>
 
                 <label for="input-zip_code">zip code: </label>
-                <input type="text" name="input-zip_code" id="input-zip_code" pattern="[0-9]+" maxlength = "5" required="required"/>
+                <input type="text" name="input-zip_code" id="input-zip_code" pattern="[0-9]+" minlength = "5" 
+                maxlength = "5" required="required"/>
 
                 <label for="input-phone_number">phone number: </label>
-                <input type="text" name="input-phone_number" id="input-phone_number" pattern="[0-9]+"  maxlength = "10" required="required"/>
+                <input type="text" name="input-phone_number" id="input-phone_number" pattern="[0-9]+"
+                 minlength= "10" maxlength = "10" required="required"/>
 
             </fieldset><br>
             <input type="submit"/>
@@ -104,7 +105,8 @@
             </select>
             
             <label for="input-update-phone_number">phone number: </label>
-            <input type="text" name="input-update-phone_number" id="input-update-phone_number" pattern="[0-9]+"  maxlength = "10" required="required">
+            <input type="text" name="input-update-phone_number" id="input-update-phone_number" pattern="[0-9]+"
+            minlength="10"  maxlength = "10" required="required">
             <input type="submit">
 
         </form>

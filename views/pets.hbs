@@ -1,13 +1,23 @@
 <title>Pets</title>
 
+<head>
+    <link rel="stylesheet" href="./css/app.css">
+</head>
+
+
 <body>
     <h1>Pets</h1>
-        [ <a href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
-        href="employees">Employees</a> | <a href="adoptions">Adoptions</a> | <a
-        href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
+    [ <a href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
+        href="employees">Employees</a> | <a href="adoptions">Adoptions</a> | <a href="vaccinations">Vaccinations</a>
+    | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View Pets</strong></p>
 
-    <table border="1" cellpadding="5">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+    {{!-- Creates a table --}}
+    <table id="pet-table">
+
         {{!-- Header section --}}
         <thead>
 
@@ -19,47 +29,58 @@
                     {{@key}}
                 </th>
                 {{/each}}
+                <th>Delete</th>
             </tr>
         </thead>
 
         {{!-- Body section --}}
         <tbody>
 
-            {{!-- For each row, print the customer_id, first_name, last_name, street, city, state, 
+            {{!-- For each row, print the customer_id, first_name, last_name, street, city, state,
             zip_code, and phone_number, in order --}}
             {{#each data}}
-            <tr>
+            <tr data-value={{this.pet_id}}>
                 <td>{{this.pet_id}}</td>
                 <td>{{this.pet_name}}</td>
                 <td>{{this.species}}</td>
                 <td>{{this.age}}</td>
                 <td>{{this.gender}}</td>
+                <td><button onclick="deletePet({{this.pet_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-
-
+    <script src="./js/delete_pet.js"></script>
 
     <br>
 
     <div>
-        <form id="add-pet-form" method="POST" action="/add-pet-form">
+        <form id="add-pet-form-ajax">
             <fieldset>
                 <legend><strong>Add Pet</strong></legend>
                 <label for="input-pet_name">pet name: </label>
-                <input type="text" name="input-pet_name" id="input-pet_name" required="required">
-                
+                <input type="text" name="input-pet_name" id="input-pet_name" required="required" />
+
                 <label for="input-species">species: </label>
-                <input type="text" name="input-species" id="input-species" required="required">
+                <select type="text" name="input-species" id="input-species" required="required">
+                    <option value="" disabled selected>species</option>
+                    <option value="dog">dog</option>
+                    <option value="cat">cat</option>
+                </select>
 
                 <label for="input-age">age: </label>
-                <input type="text" name="input-age" id="input-age" required="required">
+                <input type="text" name="input-age" id="input-age" pattern="[0-9]+" required="required" />
 
                 <label for="input-gender">gender: </label>
-                <input type="text" name="input-gender" id="input-gender" required="required">
+                <select type="text" name="input-gender" id="input-gender" required="required">
+                    <option value="" disabled selected>gender</option>
+                    <option value="female">female</option>
+                    <option value="male">male</option>
+                </select><br>
             </fieldset><br>
-            <input type="submit" value="Add Pet">
+            <input type="submit"/>
         </form>
     </div>
+
+    <script src="./js/add_pet.js"></script>
 </body>
