@@ -8,6 +8,14 @@ th, td {
     border-bottom: 1px solid #0a0a0a;
   }
 
-  tr:hover {background-color: coral;}
+tr:hover {background-color: coral;}
 
-
+button { 
+    color:#050; 
+    font: old 84% 'trebuchet ms',helvetica,sans-serif; 
+    background-color:#fed; 
+    border:1px solid; 
+    border-color: #696 #363 #363 #696; 
+    text-align: center
+    
+}
