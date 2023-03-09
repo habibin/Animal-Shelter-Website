@@ -1,5 +1,9 @@
 <title>Vaccinations</title>
 
+<head>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+
 <body>
     <h1>Vaccinations</h1>
         [ <a href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
@@ -7,7 +11,11 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View Vaccinations</strong></p>
 
-    <table border="1" cellpadding="5">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+    {{!-- Creates a table --}}
+    <table id="vaccination-table">
         {{!-- Header section --}}
         <thead>
 
@@ -19,6 +27,7 @@
                     {{@key}}
                 </th>
                 {{/each}}
+                <th>Delete</th>
             </tr>
         </thead>
 
@@ -28,7 +37,7 @@
             {{!-- For each row, print the customer_id, first_name, last_name, street, city, state, 
             zip_code, and phone_number, in order --}}
             {{#each data}}
-            <tr>
+            <tr data-value={{this.vaccination_id}}>
                 <td>{{this.vaccination_id}}</td>
                 <td>{{this.vaccination_name}}</td>
                 <td>{{this.age_administered}}</td>
@@ -36,17 +45,18 @@
                 <td>{{this.species}}</td>
                 <td>{{this.booster}}</td>
                 <td>{{this.description}}</td>
+                <td><button onclick="deleteVaccination({{this.vaccination_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 
-
+    <script src="./js/delete_vaccination.js"></script>
 
     <br>
 
     <div>
-        <form id="add-vaccination-form" method="POST" action="/add-vaccination-form">
+        <form id="add-vaccination-form-ajax">
             <fieldset>
                 <legend><strong>Add Vaccination</strong></legend>
                 <label for="input-vaccination_name">vaccination name: </label>
@@ -59,7 +69,11 @@
                 <input type="text" name="input-dosage" id="input-dosage" required="required">
 
                 <label for="input-species">species: </label>
-                <input type="text" name="input-species" id="input-species" required="required">
+                <select type="text" name="input-species" id="input-species" required="required">
+                    <option value="" disabled selected>species</option>
+                    <option value="dog">dog</option>
+                    <option value="cat">cat</option>
+                </select>
 
                 <label for="input-booster">booster: </label>
                 <input type="text" name="input-booster" id="input-booster" required="required">
@@ -70,4 +84,7 @@
             <input type="submit" value="Add Vaccination">
         </form>
     </div>
+
+    <script src="./js/add_vaccination.js"></script>
+
 </body>
