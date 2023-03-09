@@ -224,7 +224,6 @@ app.delete('/delete-pet-ajax/', function (req, res, next) {
             console.log(error);
             res.sendStatus(400);
         }
-
         else {
             //Run the second query
             db.pool.query(deletePet_id, [petID], function (error, rows, fields) {
@@ -354,10 +353,9 @@ app.get('/adoptions', function (req, res) {
     });
 });
 
-app.post('/add-adoption-form', function (req, res) {
+app.post('/add-adoption-ajax', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    console.log(req.body);
 
     // Capture NULL values
     let employee_id = parseInt(data['input-employee_id']);
@@ -387,6 +385,27 @@ app.post('/add-adoption-form', function (req, res) {
         // presents it on the screen
         else {
             res.redirect('/adoptions');
+        }
+    })
+});
+
+app.delete('/delete-adoption-ajax/', function (req, res, next) {
+    let data = req.body;
+    let adoptionID = parseInt(data.id);
+    let deleteAdoption = `DELETE FROM Adoptions WHERE adoption_id = ?`;
+
+
+    // Run the 1st query
+    db.pool.query(deleteAdoption, [adoptionID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            res.sendStatus(204);
         }
     })
 });

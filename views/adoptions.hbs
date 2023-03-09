@@ -7,6 +7,8 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View Adoptions</strong></p>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
     {{!-- Creates a table --}}
     <table border="1" cellpadding="5" id="adoption-table">
 
@@ -35,14 +37,17 @@
                 <td>{{this.date}}</td>
                 <td>{{this.pet_id}}</td>
                 <td>{{this.employee_id}}</td>
+                <td><button onclick="deleteAdoption({{this.adoption_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 
+    <script src="./js/delete_adoption.js"></script>
+
     <br>
     <div>
-        <form id="add-adoption-form" method="POST" action="/add-adoption-form">
+        <form id="add-adoption-form" method="POST" action="/add-adoption-ajax">
             <fieldset>
                 <legend><strong>Add Adoption</strong></legend>
 
@@ -77,4 +82,5 @@
             <input class="btn" type="submit" value="Add Adoption">
         </form>
     </div>
+    <script src="./js/add_adoption.js"></script>
 </body>

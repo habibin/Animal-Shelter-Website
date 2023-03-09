@@ -78,6 +78,7 @@ addRowToTable = (data) => {
     let dateCell = document.createElement("TD");
     let pet_idCell = document.createElement("TD");
     let employee_idCell = document.createElement("TD");
+    let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
     adoption_idCell.innerText = newRow.id;
@@ -86,12 +87,20 @@ addRowToTable = (data) => {
     pet_idCell.innerText = newRow.pet_id;
     employee_idCell.innerText = newRow.employee_id;
 
+    deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onclick = function(){
+        deleteCustomer(newRow.customer_id);
+    };
+    deleteCell.appendChild(deleteButton);
+
     // Add the cells to the row 
     row.appendChild(adoption_idCell);
     row.appendChild(customer_idCell);
     row.appendChild(dateCell);
     row.appendChild(pet_idCell);
     row.appendChild(employee_idCell);
+    row.appendChild(deleteCell);
     
     // Add the row to the table
     currentTable.appendChild(row);
