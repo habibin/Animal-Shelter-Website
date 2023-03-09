@@ -10,7 +10,7 @@ var app = express();            // We need to instantiate an express object to i
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-PORT = 9865;                 // Set a port number at the top so it's easy to change in the future
+PORT = 9864;                 // Set a port number at the top so it's easy to change in the future
 
 //handlerbars
 const { engine } = require('express-handlebars');
@@ -161,9 +161,6 @@ app.get('/pets', function (req, res) {
         let pets = rows;    // Execute the query
         db.pool.query(query2, (error, rows, fields) => {
 
-            // Save the planets
-            let names = rows;
-
             return res.render('pets', { data: pets});
         })               // Render the index.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
@@ -175,7 +172,7 @@ app.post('/add-pet-ajax', function (req, res) {
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Pets(pet_name, species, age, gender) 
-    VALUES ('${data['input-pet_name']}', '${data['input-species']}', '${data['input-age']}', '${data['input-gender']}')`;
+    VALUES ('${data.pet_name}', '${data.species}', '${data.age}', '${data.gender}')`;
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error
@@ -250,6 +247,117 @@ app.get('/employees', function (req, res) {
         res.render('employees', { data: rows });                  // Render the index.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
+
+app.post('/add-employee-form', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Employees(first_name, last_name) 
+    VALUES ('${data['input-first_name']}', '${data['input-last_name']}')`;
+    db.pool.query(query1, function (error, rows, fields) {
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else {
+            res.redirect('/employees');
+        }
+    })
+});
+
+
+app.get('/employees', function (req, res) {
+    let query1 = "SELECT * FROM Employees;";               // Define our query
+
+    let query2 = "SELECT * FROM Employees;"
+
+    db.pool.query(query1, function (error, rows, fields) {
+        let pets = rows;    // Execute the query
+        db.pool.query(query2, (error, rows, fields) => {
+
+            return res.render('pets', { data: pets});
+        })               // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+app.post('/add-employee-ajax', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Employees(first_name, last_name) 
+    VALUES ('${data.first_name}', '${data.last_name}')`;
+    db.pool.query(query1, function (error, rows, fields) {
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else {
+            // If there was no error, perform a SELECT * on bsg_people
+            query2 = `SELECT * FROM Employees;`;
+            db.pool.query(query2, function (error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+
+                // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+                // presents it on the screen
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+
+app.delete('/delete-employee-ajax/', function (req, res, next) {
+    let data = req.body;
+    let employeeID = parseInt(data.id);
+    let deleteAdoption = `DELETE FROM Adoptions WHERE employee_id = ?`;
+    let deleteEmployee_id = `DELETE FROM Employees WHERE employee_id = ?`;
+
+
+    // Run the 1st query
+    db.pool.query(deleteAdoption, [employeeID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            //Run the second query
+            db.pool.query(deleteEmployee_id, [employeeID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+    })
+});
 
 
 app.get('/adoptions', function (req, res) {
@@ -374,29 +482,6 @@ app.post('/add-adoption-form', function (req, res) {
 
 
 
-app.post('/add-employee-form', function (req, res) {
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-
-    // Create the query and run it on the database
-    query1 = `INSERT INTO Employees(first_name, last_name) 
-    VALUES ('${data['input-first_name']}', '${data['input-last_name']}')`;
-    db.pool.query(query1, function (error, rows, fields) {
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
-        else {
-            res.redirect('/employees');
-        }
-    })
-});
 
 app.post('/add-vaccination-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
