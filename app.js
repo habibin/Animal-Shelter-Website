@@ -216,6 +216,7 @@ app.post('/add-customer-ajax', function (req, res) {
 });
 
 
+
 app.post('/add-adoption-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -330,12 +331,15 @@ app.post('/add-vaccination-form', function (req, res) {
 app.delete('/delete-customer-ajax/', function (req, res, next) {
     let data = req.body;
     let customerID = parseInt(data.id);
-    let deleteCustomer_pid = `DELETE FROM Adoptions WHERE customer_id = ?`;
+    console.log(customerID);
+    let deleteAdoption = `DELETE FROM Adoptions WHERE customer_id = ?`;
+    console.log(deleteAdoption);
     let deleteCustomer_id = `DELETE FROM Customers WHERE customer_id = ?`;
+    console.log(deleteCustomer_id);
 
 
     // Run the 1st query
-    db.pool.query(deleteCustomer_pid, [customerID], function (error, rows, fields) {
+    db.pool.query(deleteAdoption, [customerID], function (error, rows, fields) {
         if (error) {
 
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.

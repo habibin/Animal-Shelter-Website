@@ -1,5 +1,9 @@
 <title>Customers</title>
 
+<head>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+
 
 <body>
     <h1>Customers</h1>
@@ -10,11 +14,11 @@
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="./js/delete_customer.js"></script>
+
 
 
     {{!-- Creates a table --}}
-    <table border="1" cellpadding="5" id="customer-table">
+    <table id="customer-table">
 
         {{!-- Header section --}}
         <thead>
@@ -27,7 +31,7 @@
                     {{@key}}
                 </th>
                 {{/each}}
-                <th>delete</th>
+                <th>Delete</th>
             </tr>
         </thead>
 
@@ -45,13 +49,13 @@
                 <td>{{this.city}}</td>
                 <td>{{this.state}}</td>
                 <td>{{this.zip_code}}</td>
-                <td id="phone_number_change">{{this.phone_number}}</td>
-                <td><button onclick="deletecustomer({{this.customer_id}})">Delete</button></td>
+                <td>{{this.phone_number}}</td>
+                <td><button onclick="deleteCustomer({{this.customer_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-
+    <script src="./js/delete_customer.js"></script>
 
     <br>
 

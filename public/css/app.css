@@ -1,0 +1,13 @@
+table {
+    border: 1px solid;
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #0a0a0a;
+  }
+
+  tr:hover {background-color: coral;}
+
+
