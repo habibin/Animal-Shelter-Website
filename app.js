@@ -552,12 +552,29 @@ app.get('/petvaccinations', function (req, res) {
 
     db.pool.query(query1, function (error, petvaccinations, fields) {    // Execute the query
 
-        db.pool.query(query2, (error, pet, field) => {
+        db.pool.query(query2, (error, pets, field) => {
+            let petmap = {}
+            pets.map(pet => {
+                let id = parseInt(pet.pet_id, 10);
 
-            db.pool.query(query3, (error, vaccination, field) => {
-
-                return res.render('petvaccinations', { data: petvaccinations, pet: pet, vaccination: vaccination });                  // Render the adoptions.hbs file, and also send the renderer
-
+                petmap[id] = pet["pet_name"];
+            })
+            
+            petvaccinations = petvaccinations.map(petvaccination =>{
+                return Object.assign(petvaccination, {pet_id: petmap[petvaccination.pet_id]});
+            })
+            db.pool.query(query3, (error, vaccinations, field) => {
+                let vaxmap = {}
+                vaccinations.map(vax => {
+                    let id = parseInt(vax.vaccination_id, 10);
+    
+                    vaxmap[id] = vax["vaccination_name"];
+                })
+    
+                petvaccinations = petvaccinations.map(petvaccination =>{
+                    return Object.assign(petvaccination, {vaccination_id: vaxmap[petvaccination.vaccination_id]});
+                })
+                return res.render('petvaccinations', { data: petvaccinations, pet: pets, vaccination: vaccinations });                  // Render the adoptions.hbs file, and also send the renderer
             });
         });
     });
