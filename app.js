@@ -343,7 +343,6 @@ app.get('/adoptions', function (req, res) {
         adoptions.map(adoption => {
             let id = parseInt(adoption.adoption_id, 10);
 
-            console.log(adoption["date"].toString().slice(4,15));
             datemap[id] = adoption["date"].toString().slice(4,15);
         })
 
@@ -566,7 +565,6 @@ app.get('/petvaccinations', function (req, res) {
         petvaccinations.map(petvac => {
             let id = parseInt(petvac.petvaccination_id, 10);
 
-            console.log(petvac["date"].toString().slice(4,15));
             datemap[id] = petvac["date"].toString().slice(4,15);
         })
 
@@ -657,6 +655,40 @@ app.delete('/delete-petvaccination-ajax/', function (req, res, next) {
 
         else {
             res.sendStatus(204);
+        }
+    })
+});
+
+app.put('/put-petvaccination-ajax', function (req, res, next) {
+    let data = req.body;
+
+    console.log(data);
+
+    let date = data.date;
+    let person = parseInt(data.customerID);
+
+    console.log(date);
+
+    let queryUpdatePVac= `UPDATE PetVaccinations SET date = ? WHERE petvaccination_id = ?`;
+    let selectPVAC = `SELECT * FROM PetVaccinations WHERE petvaccination_id = ?`
+
+    // Run the 1st query
+    db.pool.query(queryUpdatePVac, [date, person], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }else{
+            db.pool.query(selectPVAC, [person], function(error, rows, fields)
+            {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
         }
     })
 });
