@@ -54,7 +54,7 @@
                 <legend><strong>Add Pet Vaccination</strong></legend>
 
                 <label for="input-pet_id">pet id: </label>
-                <select type="number" name="input-pet_id" id="input-pet_id">
+                <select type="number" name="input-pet_id" id="input-pet_id" required="required"/>
                     <option value="">Select a pet id</option>
                     {{#each pet}}
                     <option value="{{this.pet_id}}">{{this.pet_name}}</option>
@@ -62,10 +62,10 @@
                     </select><br>
 
                 <label for="input-date">date: </label>
-                <input type="date" name="input-date" id="input-date"></input><br>
+                <input type="date" name="input-date" id="input-date" required="required"/></input><br>
 
                 <label for="input-vaccination_id">vaccination_id: </label>
-                <select type="number" name="input-vaccination_id" id="input-vaccination_id">
+                <select type="number" name="input-vaccination_id" id="input-vaccination_id" required="required"/>
                       <option value="">Select a vaccination id</option>
                     {{#each vaccination}}
                     <option value="{{this.vaccination_id}}">{{this.vaccination_name}}</option>
