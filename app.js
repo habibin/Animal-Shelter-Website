@@ -339,7 +339,18 @@ app.get('/adoptions', function (req, res) {
 
 
     db.pool.query(query1, function (error, adoptions, fields) {    // Execute the query)
-        
+        let datemap = {}
+        adoptions.map(adoption => {
+            let id = parseInt(adoption.adoption_id, 10);
+
+            console.log(adoption["date"].toString().slice(4,15));
+            datemap[id] = adoption["date"].toString().slice(4,15);
+        })
+
+        adoptions = adoptions.map(adoption =>{
+            return Object.assign(adoption, {date:  datemap[adoption.adoption_id]});
+        })
+
         db.pool.query(query2, (error, customers, field) => {
             console.log(customers);
             let customermap = {}
@@ -551,7 +562,17 @@ app.get('/petvaccinations', function (req, res) {
 
 
     db.pool.query(query1, function (error, petvaccinations, fields) {    // Execute the query
+        let datemap = {}
+        petvaccinations.map(petvac => {
+            let id = parseInt(petvac.petvaccination_id, 10);
 
+            console.log(petvac["date"].toString().slice(4,15));
+            datemap[id] = petvac["date"].toString().slice(4,15);
+        })
+
+        petvaccinations = petvaccinations.map(petvac =>{
+            return Object.assign(petvac, {date:  datemap[petvac.petvaccination_id]});
+        })  
         db.pool.query(query2, (error, pets, field) => {
             let petmap = {}
             pets.map(pet => {
