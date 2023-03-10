@@ -1,5 +1,9 @@
 <title>PetVaccinations</title>
 
+<head>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+
 <body>
     <h1>PetVaccinations</h1>
         [ <a href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
@@ -7,7 +11,9 @@
         href="vaccinations">Vaccinations</a> | <a href="petvaccinations">PetVaccinations</a>]
     <p><strong>View PetVaccinations</strong></p>
 
-       <table border="1" cellpadding="5">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <table id="petvaccination-table">
         {{!-- Header section --}}
         <thead>
 
@@ -19,6 +25,7 @@
                     {{@key}}
                 </th>
                 {{/each}}
+                <th>Delete</th>
             </tr>
         </thead>
 
@@ -28,18 +35,21 @@
             {{!-- For each row, print the customer_id, first_name, last_name, street, city, state, 
             zip_code, and phone_number, in order --}}
             {{#each data}}
-            <tr>
+            <tr data-value={{this.petvaccination_id}}>
                 <td>{{this.petvaccination_id}}</td>
                 <td>{{this.date}}</td>
                 <td>{{this.pet_id}}</td>
                 <td>{{this.vaccination_id}}</td>
+                <td><button onclick="deletePetVaccination({{this.petvaccination_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>  
 
+    <script src="./js/delete_petvaccination.js"></script>
+
     <div>
-        <form id="add-pVaccination-form-ajax" method="POST" action="/add-pVaccination-form">
+        <form id="add-pVaccination-form-ajax">
             <fieldset>
                 <legend><strong>Add Pet Vaccination</strong></legend>
 
@@ -63,7 +73,9 @@
                     </select><br>
                     
             </fieldset><br>
-            <input class="btn" type="submit" value="Add Pet Vaccination">
+            <input type="submit">
         </form>
     </div>
+    <script src="./js/add_petvaccination.js"></script>
+
 </body>

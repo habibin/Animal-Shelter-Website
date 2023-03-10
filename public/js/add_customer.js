@@ -36,6 +36,8 @@ addCustomerForm.addEventListener("submit", function (e) {
         phone_number: phone_numberValue
     }
     
+    console.log(data);
+
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-customer-ajax", true);
@@ -82,6 +84,10 @@ addRowToTable = (data) => {
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
+    console.log(data);
+    console.log(parsedData);
+
+    console.log(newRow);
     // Create a row and 4 cells
     let row = document.createElement("TR");
     let idCell = document.createElement("TD");

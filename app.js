@@ -338,15 +338,46 @@ app.get('/adoptions', function (req, res) {
     let query4 = "SELECT * FROM Employees;";               // Define our query
 
 
-    db.pool.query(query1, function (error, adoption, fields) {    // Execute the query
+    db.pool.query(query1, function (error, adoptions, fields) {    // Execute the query
+        
+        db.pool.query(query2, (error, customers, field) => {
 
-        db.pool.query(query2, (error, customer, field) => {
+            let customermap = {}
+            customers.map(customer => {
+                let id = parseInt(customer.customer_id, 10);
 
-            db.pool.query(query3, (error, pet, field) => {
+                customermap[id] = customer["first_name"] + ' ' + customer["last_name"];
+            })
 
-                db.pool.query(query4, (error, employee, field) => {
+            adoptions = adoptions.map(adoption =>{
+                return Object.assign(adoption, {customer_id: customermap[adoption.customer_id]});
+            })
 
-                    return res.render('adoptions', { data: adoption, customer: customer, pet: pet, employee: employee });                  // Render the adoptions.hbs file, and also send the renderer
+            db.pool.query(query3, (error, pets, field) => {
+                let petmap = {}
+                pets.map(pet =>{
+                    let id = parseInt(pet.pet_id, 10);
+                    
+                    petmap[id] = pet["pet_name"];
+                })
+                
+                adoptions = adoptions.map(adoption =>{
+                    return Object.assign(adoption, {pet_id: petmap[adoption.pet_id]});
+                })
+
+                db.pool.query(query4, (error, employees, field) => {
+                    let employeemap = {}
+                    employees.map(employee => {
+                        let id = parseInt(employee.employee_id, 10);
+
+                        employeemap[id] = employee["first_name"] + ' ' + employee["last_name"];
+                    })
+
+                    adoptions = adoptions.map(adoption =>{
+                        return Object.assign(adoption, {employee_id: employeemap[adoption.employee_id]});
+                    })
+
+                    return res.render('adoptions', { data: adoptions, customer: customers, pet: pets, employee: employees });                  // Render the adoptions.hbs file, and also send the renderer
                 });
             });
         });
@@ -358,19 +389,19 @@ app.post('/add-adoption-ajax', function (req, res) {
     let data = req.body;
 
     // Capture NULL values
-    let employee_id = parseInt(data['input-employee_id']);
+    let employee_id = parseInt(data['employee_id']);
     if (isNaN(employee_id)) {
         employee_id_check = null
     }
     else {
-        employee_id_check = parseInt(data['input-employee_id'])
+        employee_id_check = parseInt(data['employee_id'])
     }
-
     // Create the query and run it on the database
 
 
-    query1 = `INSERT INTO Adoptions(customer_id, date, pet_id, employee_id) 
-    VALUES ('${data['input-customer_id']}', '${data['input-date']}', '${data['input-pet_id']}', ${employee_id_check})`;
+    let query1 = `INSERT INTO Adoptions(customer_id, date, pet_id, employee_id) 
+    VALUES ('${data['customer_id']}', '${data['date']}', '${data['pet_id']}', ${employee_id_check})`;
+    let query2 = "SELECT * FROM Adoptions";
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error
@@ -384,7 +415,18 @@ app.post('/add-adoption-ajax', function (req, res) {
         // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
         // presents it on the screen
         else {
-            res.redirect('/adoptions');
+            db.pool.query(query2, function (error, rows, fields){
+                if (error) {
+        
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+        
+                else {
+                    res.send(rows);
+                }
+            })
         }
     })
 });
@@ -393,7 +435,6 @@ app.delete('/delete-adoption-ajax/', function (req, res, next) {
     let data = req.body;
     let adoptionID = parseInt(data.id);
     let deleteAdoption = `DELETE FROM Adoptions WHERE adoption_id = ?`;
-
 
     // Run the 1st query
     db.pool.query(deleteAdoption, [adoptionID], function (error, rows, fields) {
@@ -523,13 +564,12 @@ app.get('/petvaccinations', function (req, res) {
 });                                                         // received back from the query
 
 
-app.post('/add-pVaccination-form', function (req, res) {
+app.post('/add-pVaccination-ajax', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    console.log(data);
     // Create the query and run it on the database
     query1 = `INSERT INTO PetVaccinations(date, pet_id, vaccination_id) 
-    VALUES ('${data['input-date']}', '${data['input-pet_id']}', '${data['input-vaccination_id']}')`;
+    VALUES ('${data['date']}', '${data['pet_id']}', '${data['VID']}')`;
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error
@@ -543,12 +583,45 @@ app.post('/add-pVaccination-form', function (req, res) {
         // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
         // presents it on the screen
         else {
-            res.redirect('/petvaccinations');
+            let query2 = "SELECT * FROM PetVaccinations;";               // Define our query         // Define our query             // Define our query
+
+            db.pool.query(query2, function (error, petvaccinations, fields) {    // Execute the query
+                if (error) {
+
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400);
+                }else
+                {
+                    res.send(petvaccinations);
+                }
+               
+            });
         }
     })
 });
 
+app.delete('/delete-petvaccination-ajax/', function (req, res, next) {
+    let data = req.body;
+    let pVaccinationID = parseInt(data.id);
+    console.log(pVaccinationID);
+    let deletePetVaccination = `DELETE FROM PetVaccinations WHERE petvaccination_id = ?`;
 
+
+    // Run the 1st query
+    db.pool.query(deletePetVaccination, [pVaccinationID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            res.sendStatus(204);
+        }
+    })
+});
 
 /*
     LISTENER

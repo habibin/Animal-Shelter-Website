@@ -1,5 +1,10 @@
 <title>Adoptions</title>
 
+<head>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+
+
 <body>
     <h1>Adoptions</h1>
         [ <a href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
@@ -23,6 +28,7 @@
                     {{@key}}
                 </th>
                 {{/each}}
+                <th>Delete</th>
             </tr>
         </thead>
 
@@ -32,6 +38,7 @@
             {{!-- For each row, print the customer_id, first_name, last_name, street, city, state, 
             zip_code, and phone_number, in order --}}
             {{#each data}}
+            <tr data-value={{this.adoption_id}}>
                 <td>{{this.adoption_id}}</td>
                 <td>{{this.customer_id}}</td>
                 <td>{{this.date}}</td>
@@ -47,7 +54,7 @@
 
     <br>
     <div>
-        <form id="add-adoption-form" method="POST" action="/add-adoption-ajax">
+        <form id="add-adoption-form-ajax">
             <fieldset>
                 <legend><strong>Add Adoption</strong></legend>
 
@@ -79,7 +86,7 @@
                     {{/each}}
                     </select><br>
             </fieldset><br>
-            <input class="btn" type="submit" value="Add Adoption">
+            <input type="submit">
         </form>
     </div>
     <script src="./js/add_adoption.js"></script>
