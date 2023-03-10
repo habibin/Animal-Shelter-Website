@@ -78,4 +78,26 @@
     </div>
     <script src="./js/add_petvaccination.js"></script>
 
+    
+    <div>
+        <h2>Update A Pet Vaccination </h2>
+        <form id="update-pVac-form-ajax">
+
+            <label for="input-fullname">Pet Vaccination ID: </label>
+            <select name="input-fullname" id="idInput">
+                <option value="test">Select a ID</option>
+                {{#each data}}
+                <option value="{{this.petvaccination_id}}">{{this.petvaccination_id}}</option>
+                {{/each}}
+            </select>
+            
+            <label for="input-update-date">date: </label>
+            <input type="date" name="input-update-date" id="input-update-date" required="required"/></input><br>
+            <input type="submit">
+
+        </form>
+
+    </div>
+    <script src="./js/update_petvaccination.js"></script>
+
 </body>
