@@ -338,10 +338,10 @@ app.get('/adoptions', function (req, res) {
     let query4 = "SELECT * FROM Employees;";               // Define our query
 
 
-    db.pool.query(query1, function (error, adoptions, fields) {    // Execute the query
+    db.pool.query(query1, function (error, adoptions, fields) {    // Execute the query)
         
         db.pool.query(query2, (error, customers, field) => {
-
+            console.log(customers);
             let customermap = {}
             customers.map(customer => {
                 let id = parseInt(customer.customer_id, 10);
@@ -559,7 +559,7 @@ app.get('/petvaccinations', function (req, res) {
 
                 petmap[id] = pet["pet_name"];
             })
-            
+
             petvaccinations = petvaccinations.map(petvaccination =>{
                 return Object.assign(petvaccination, {pet_id: petmap[petvaccination.pet_id]});
             })

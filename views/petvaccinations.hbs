@@ -57,7 +57,7 @@
                 <select type="number" name="input-pet_id" id="input-pet_id">
                     <option value="">Select a pet id</option>
                     {{#each pet}}
-                    <option value="{{this.pet_id}}">{{this.pet_id}}</option>
+                    <option value="{{this.pet_id}}">{{this.pet_name}}</option>
                     {{/each}}
                     </select><br>
 
@@ -68,7 +68,7 @@
                 <select type="number" name="input-vaccination_id" id="input-vaccination_id">
                       <option value="">Select a vaccination id</option>
                     {{#each vaccination}}
-                    <option value="{{this.vaccination_id}}">{{this.vaccination_id}}</option>
+                    <option value="{{this.vaccination_id}}">{{this.vaccination_name}}</option>
                     {{/each}}
                     </select><br>
                     

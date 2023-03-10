@@ -86,11 +86,13 @@ addRowToTable = (data) => {
     let employee_idCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
+    let fixedDate = newRow.date.slice(0,10);
+
     // Fill the cells with correct data
     console.log(newRow);
     adoption_idCell.innerText = newRow.adoption_id;
     customer_idCell.innerText = newRow.customer_id;
-    dateCell.innerText = newRow.date;
+    dateCell.innerText = fixedDate;
     pet_idCell.innerText = newRow.pet_id;
     employee_idCell.innerText = newRow.employee_id;
 
