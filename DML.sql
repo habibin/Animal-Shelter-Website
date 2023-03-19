@@ -23,20 +23,10 @@ VALUES (:first_nameInput,
 
 -- update customer data --
 SELECT  Customers.customer_id,
-        Customers.first_name,
-        Customers.last_name,
-        Customers.street,
-        Customers.city,
-        Customers.state,
-        Customers.zip_code,
         Customers.phone_number
 FROM Customers WHERE customer_id = :customer_id_selected_from_browse_customers_page
 UPDATE Customers
-SET first_name = :first_nameInput,
-    last_name = :last_nameInput,
-    city = :cityInput,
-    state = :stateInput,
-    zip_code = :zip_codeInput,
+SET 
     phone_number = :phone_numberInput
 WHERE customer_id = :customer_id_from_the_update_form
 
@@ -60,16 +50,6 @@ INSERT INTO Employees(first_name, last_name)
 VALUES (:first_nameInput,
         :last_nameInput)
 
--- update employees data --
-SELECT  Employees.employee_id,
-        Employees.first_name,
-        Employees.last_name
-FROM Employees WHERE employee_id = :employee_id_selected_from_browse_employees_page
-UPDATE Employees
-SET first_name = :first_nameInput,
-    last_name = :last_nameInput,
-WHERE employee_id = :employee_id_from_the_update_form
-
 -- Delete employees --
 DELETE FROM Employees
 WHERE employee_id = :employee_id_selected_from_browse_employees_page
@@ -92,20 +72,6 @@ VALUES (:pet_nameInput,
         :speciesInput,
         :ageInput,
         :genderInput)
-
--- update pets data --
-SELECT  Pets.pet_id,
-        Pets.pet_name,
-        Pets.species,
-        Pets.age,
-        Pets.gender
-FROM Pets WHERE pet_id = :pet_id_selected_from_browse_pets_page
-UPDATE Pets
-SET pet_name = :pet_nameInput,
-    species = :speciesInput,
-    age = :ageInput,
-    gender = :genderInput,
-WHERE pet_id = :pet_id_from_the_update_form
 
 -- Delete pets --
 DELETE FROM Pets
@@ -133,24 +99,6 @@ VALUES (:vaccination_nameInput,
         :speciesInput,
         :boosterInput,
         :descriptionInput)
-
--- update vaccination data --
-SELECT  Vaccinations.vaccination_id,
-        Vaccinations.vaccination_name,
-        Vaccinations.age_administered,
-        Vaccinations.dosage,
-        Vaccinations.species,
-        Vaccinations.booster,
-        Vaccinations.description
-FROM Vaccinations WHERE vaccination_id = :vaccination_id_selected_from_browse_vaccinations_page
-UPDATE Vaccinations
-SET vaccination_name = :vaccination_nameInput,
-    age_administered = :age_administeredInput,
-    dosage= :dosageInput,
-    species = :speciesInput,
-    booster = :boosterInput,
-    description = :descriptionInput
-WHERE vaccination_id = :vaccination_id_from_the_update_form
 
 -- Delete vaccination --
 DELETE FROM Vaccinations
