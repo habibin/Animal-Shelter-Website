@@ -60,10 +60,12 @@ a {
 }
 
 #image {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
-    margin-top: 8%;
+    margin-top: 25px;
     border: 5px solid rgb(2, 48, 2);
+    height: auto;
+    width: 99.4%;
 }
 
 #text1 {
@@ -78,5 +80,5 @@ a {
 #logo {
     display: flex;
     justify-content: center;
-    margin-top: -41%;
+    /* margin-top: -780px; */
 }
