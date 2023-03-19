@@ -351,7 +351,6 @@ app.get('/adoptions', function (req, res) {
         })
 
         db.pool.query(query2, (error, customers, field) => {
-            console.log(customers);
             let customermap = {}
             customers.map(customer => {
                 let id = parseInt(customer.customer_id, 10);
