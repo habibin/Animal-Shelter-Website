@@ -1,17 +1,15 @@
-<title>Customers</title>
+<link rel="stylesheet" href="./css/app.css">
 
 <head>
-  <link rel="stylesheet" href="./css/app.css">
+    <title>Customers</title>
+    <h1>Customers</h1>
 </head>
 
 
 <body>
-    <h1>Customers</h1>
     <p id="links"> [ <a  href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
         href="employees">Employees</a> | <a href="adoptions">Adoptions</a> | <a href="vaccinations">Vaccinations</a> |
     <a href="petvaccinations">PetVaccinations </a>] </p>
-    
-    <p><strong>View Customers</strong></p>
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -57,7 +55,7 @@
     </table>
     <script src="./js/delete_customer.js"></script>
 
-    <br>
+    <br><br>
 
     <div>
         <form id="add-customer-form-ajax">
@@ -92,26 +90,41 @@
     </div>
 
     <script src="./js/add_customer.js"></script>
+    <br><br>
 
     <div>
-        <h2>Update A Customer </h2>
         <form id="update-person-form-ajax">
+            <fieldset>
+                <legend><strong>Update Customer</strong></legend>
+                <label for="input-fullname">Full name: </label>
+                <select name="input-fullname" id="nameInput">
+                    <option value="test">Select a Person</option>
+                    {{#each people}}
+                    <option value="{{this.customer_id}}">{{this.first_name}} {{this.last_name}}</option>
+                    {{/each}}
+                </select>
+                
+                <label for="input-update-phone_number">phone number: </label>
+                <input type="text" name="input-update-phone_number" id="input-update-phone_number" pattern="[0-9]+"
+                minlength="10"  maxlength = "10" required="required">
 
-            <label for="input-fullname">Full name: </label>
-            <select name="input-fullname" id="nameInput">
-                <option value="test">Select a Person</option>
-                {{#each people}}
-                <option value="{{this.customer_id}}">{{this.first_name}} {{this.last_name}}</option>
-                {{/each}}
-            </select>
+                </fieldset><br>
+                <input type="submit">
             
-            <label for="input-update-phone_number">phone number: </label>
-            <input type="text" name="input-update-phone_number" id="input-update-phone_number" pattern="[0-9]+"
-            minlength="10"  maxlength = "10" required="required">
-            <input type="submit">
-
         </form>
 
     </div>
     <script src="./js/update_customer.js"></script>
+
+    <br><br><br>
+
+    {{!-- <iframe src="https://giphy.com/embed/irQVspuvIC8PixdV7o" 
+    width="200" height="200" frameBorder="0" class="giphy-embed" 
+    allowFullScreen></iframe><p><a 
+    href="https://giphy.com/gifs/dog-adopt-dont-shop-blue-cat-irQVspuvIC8PixdV7o"></a></p> --}}
+
+    {{!-- <iframe src="https://giphy.com/embed/fUBMMTfVlfbLhJikzK" width="180" height="127" 
+    frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a 
+    href="https://giphy.com/gifs/bestfriends-save-them-all-best-friends-animal-society-bfas-fUBMMTfVlfbLhJikzK"></a></p> --}}
+
 </body>

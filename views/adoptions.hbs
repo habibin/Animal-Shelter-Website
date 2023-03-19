@@ -1,15 +1,15 @@
-<title>Adoptions</title>
+<link rel="stylesheet" href="./css/app.css">
 
 <head>
-  <link rel="stylesheet" href="./css/app.css">
+    <title>Adoptions</title>
+    <h1>Adoptions</h1>
 </head>
 
 <body>
-    <h1>Adoptions</h1>
     <p id="links"> [ <a  href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
         href="employees">Employees</a> | <a href="adoptions">Adoptions</a> | <a href="vaccinations">Vaccinations</a> |
     <a href="petvaccinations">PetVaccinations </a>] </p>
-    <p><strong>View Adoptions</strong></p>
+
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -51,39 +51,39 @@
 
     <script src="./js/delete_adoption.js"></script>
 
-    <br>
+    <br><br>
     <div>
         <form id="add-adoption-form-ajax">
             <fieldset>
                 <legend><strong>Add Adoption</strong></legend>
 
-                <label for="input-customer_id">customer_id: </label>
+                <label for="input-customer_id">customer name: </label>
                 <select type="number" name="input-customer_id" id="input-customer_id" required="required"/>
                     <option value="">Select a customer</option>
                     {{#each customer}}
                     <option value="{{this.customer_id}}">{{this.first_name}} {{this.last_name}}</option>
                     {{/each}}
-                    </select><br>
+                    </select>
 
                 <label for="input-date">date: </label>
-                <input type="date" name="input-date" id="input-date" required="required"/></input><br>
+                <input type="date" name="input-date" id="input-date" required="required"/></input>
 
-                <label for="input-pet_id">pet_id: </label>
+                <label for="input-pet_id">pet name: </label>
                 <select type="number" name="input-pet_id" id="input-pet_id" required="required"/>
                       <option value="">Select a pet</option>
                     {{#each pet}}
                     <option value="{{this.pet_id}}">{{this.pet_name}}</option>
                     {{/each}}
-                    </select><br>
+                    </select>
                     
-                <label for="input-employee_id">employee_id: </label>
+                <label for="input-employee_id">employee name: </label>
                 <select type="number" name="input-employee_id" id="input-employee_id" required="required"/>
                     <option value="">Select a employee</option>
                     <option value="NULL">NULL</option>
                     {{#each employee}}
                     <option value="{{this.employee_id}}">{{this.first_name}} {{this.last_name}}</option>
                     {{/each}}
-                    </select><br>
+                    </select>
             </fieldset><br>
             <input type="submit">
         </form>

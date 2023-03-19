@@ -10,7 +10,7 @@ var app = express();            // We need to instantiate an express object to i
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-PORT = 9864;                 // Set a port number at the top so it's easy to change in the future
+PORT = 9865;                 // Set a port number at the top so it's easy to change in the future
 
 //handlerbars
 const { engine } = require('express-handlebars');
@@ -485,7 +485,7 @@ app.post('/add-vaccination-ajax', function (req, res) {
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Vaccinations(vaccination_name, age_administered, dosage, species, booster, description) 
-    VALUES ('${data.vaccination_name}', '${data.age}', '${data.dosage}', '${data.species}', '${data.booster}', '${data.description}')`;
+    VALUES ('${data.vaccination_name}', '${data.age_administered}', '${data.dosage}', '${data.species}', '${data.booster}', '${data.description}')`;
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error
@@ -523,7 +523,7 @@ app.post('/add-vaccination-ajax', function (req, res) {
 app.delete('/delete-vaccination-ajax/', function (req, res, next) {
     let data = req.body;
     let vaccinationID = parseInt(data.id);
-    let deleteAdoption = `DELETE FROM Adoptions WHERE vaccination_id = ?`;
+    let deleteAdoption = `DELETE FROM PetVaccinations WHERE vaccination_id = ?`;
     let deleteVaccination_id = `DELETE FROM Vaccinations WHERE vaccination_id = ?`;
 
 

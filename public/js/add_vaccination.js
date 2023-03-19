@@ -93,7 +93,7 @@ addRowToTable = (data) => {
     // Fill the cells with correct data
     idCell.innerText = newRow.vaccination_id;
     vaccinationNameCell.innerText = newRow.vaccination_name;
-    ageCell.innerText = newRow.age;
+    ageCell.innerText = newRow.age_administered;
     dosageCell.innerText = newRow.dosage;
     speciesCell.innerText = newRow.species;
     boosterCell.innerText = newRow.booster;

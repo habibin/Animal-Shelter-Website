@@ -1,15 +1,15 @@
-<title>PetVaccinations</title>
+<link rel="stylesheet" href="./css/app.css">
 
 <head>
-  <link rel="stylesheet" href="./css/app.css">
+    <title>PetVaccinations</title>
+    <h1>PetVaccinations</h1>
 </head>
 
 <body>
-    <h1>PetVaccinations</h1>
     <p id="links"> [ <a  href="/">Homepage</a> | <a href="customers">Customers</a> | <a href="pets">Pets</a> | <a
         href="employees">Employees</a> | <a href="adoptions">Adoptions</a> | <a href="vaccinations">Vaccinations</a> |
     <a href="petvaccinations">PetVaccinations </a>] </p>
-    <p><strong>View PetVaccinations</strong></p>
+
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -45,32 +45,33 @@
             {{/each}}
         </tbody>
     </table>  
-
     <script src="./js/delete_petvaccination.js"></script>
+
+    <br><br>
 
     <div>
         <form id="add-pVaccination-form-ajax">
             <fieldset>
                 <legend><strong>Add Pet Vaccination</strong></legend>
 
-                <label for="input-pet_id">pet id: </label>
+                <label for="input-pet_id">pet name: </label>
                 <select type="number" name="input-pet_id" id="input-pet_id" required="required"/>
-                    <option value="">Select a pet id</option>
+                    <option value="">Select a pet name</option>
                     {{#each pet}}
                     <option value="{{this.pet_id}}">{{this.pet_name}}</option>
                     {{/each}}
-                    </select><br>
+                    </select>
 
                 <label for="input-date">date: </label>
-                <input type="date" name="input-date" id="input-date" required="required"/></input><br>
+                <input type="date" name="input-date" id="input-date" required="required"/></input>
 
-                <label for="input-vaccination_id">vaccination_id: </label>
+                <label for="input-vaccination_id">vaccine: </label>
                 <select type="number" name="input-vaccination_id" id="input-vaccination_id" required="required"/>
-                      <option value="">Select a vaccination id</option>
+                      <option value="">Select a vaccine</option>
                     {{#each vaccination}}
                     <option value="{{this.vaccination_id}}">{{this.vaccination_name}}</option>
                     {{/each}}
-                    </select><br>
+                    </select>
                     
             </fieldset><br>
             <input type="submit">
@@ -78,21 +79,24 @@
     </div>
     <script src="./js/add_petvaccination.js"></script>
 
-    
-    <div>
-        <h2>Update A Pet Vaccination </h2>
-        <form id="update-pVac-form-ajax">
+    <br><br>
 
-            <label for="input-fullname">Pet Vaccination ID: </label>
-            <select name="input-fullname" id="idInput">
-                <option value="test">Select a ID</option>
-                {{#each data}}
-                <option value="{{this.petvaccination_id}}">{{this.petvaccination_id}}</option>
-                {{/each}}
-            </select>
-            
-            <label for="input-update-date">date: </label>
-            <input type="date" name="input-update-date" id="input-update-date" required="required"/></input><br>
+    <div>
+
+        <form id="update-pVac-form-ajax">
+            <fieldset>
+                <legend><strong>Add Pet Vaccination</strong></legend>
+                <label for="input-fullname">Pet Vaccination ID: </label>
+                <select name="input-fullname" id="idInput">
+                    <option value="test">Select a ID</option>
+                    {{#each data}}
+                    <option value="{{this.petvaccination_id}}">{{this.petvaccination_id}}</option>
+                    {{/each}}
+                </select>
+                
+                <label for="input-update-date">date: </label>
+                <input type="date" name="input-update-date" id="input-update-date" required="required"/></input><br>
+            </fieldset><br>
             <input type="submit">
 
         </form>
