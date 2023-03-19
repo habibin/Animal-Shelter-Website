@@ -179,6 +179,8 @@ VALUES  ((customer_id WHERE customer_id = :customer_idInput),
         (pet_id WHERE pet_id = :pet_idInput),
         (employee_id WHERE employee_id = :employee_idInput))
 
+DELETE FROM Adoptions
+WHERE adoption_id = :adoption_id_selected_from_browse_vaccinations_page
 
 ------------------------------------------------------------------------------
 -- PetVaccinations queries --
@@ -192,8 +194,22 @@ FROM PetVaccinations
 INNER JOIN Pets ON PetVaccinations.pet_id = Pets.pet_id
 INNER JOIN Vaccinations ON PetVaccinations.vaccination_id = Vaccinations.vaccination_id
 
--- add new adoption --
+-- add new petvaccination --
 INSERT INTO PetVaccinations(date, pet_id, vaccination_id)
 VALUES (:dateInput,
         (pet_id WHERE pet_id = :pet_idInput),
         (vaccination_id WHERE vaccination_id = :vaccination_idInput))
+
+-- delete petvaccination --
+DELETE FROM PetVaccinations
+WHERE petvaccination_id = :petvaccination_id_selected_from_browse_vaccinations_page
+
+-- update petvaccination --
+SELECT  PetVaccinations.petvaccination_id,
+        PetVaccinations.date,
+        Pets.pet_id,
+        Vaccinations.vaccination_id
+FROM PetVaccinations  WHERE petvaccination_id = :petvaccination_id_selected_from_browse_vaccinations_page
+UPDATE PetVaccinations
+SET date = :date
+WHERE petvaccination_id = :petvaccination_id_from_the_update_form
