@@ -10,4 +10,4 @@ https://www.vetriscience.com/media/catalog/category/VS_CategoryHeaders_Dog-PRO_R
 LOGO CREATION:
 https://www.canva.com/create/logos/ 
 
-![Screenshot Image](public/img/screenshot of website.png)
+![Screenshot Image](public/img/screenshot%20of%20website.png)
